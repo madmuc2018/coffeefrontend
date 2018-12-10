@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using coffeefrontend.Views;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace coffeefrontend
@@ -11,7 +12,7 @@ namespace coffeefrontend
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new LoginPage();
         }
 
         protected override void OnStart()
