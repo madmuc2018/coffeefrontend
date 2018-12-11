@@ -1,5 +1,5 @@
 ﻿using System;
-namespace coffeefrontend.Views
+namespace coffeefrontend
 {
     public class MenuPageItem
     {

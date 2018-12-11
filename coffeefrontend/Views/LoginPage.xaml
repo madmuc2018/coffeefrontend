@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="coffeefrontend.Views.LoginPage">
+<!--<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="coffeefrontend.LoginPage">
    <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -31,4 +34,30 @@
             </StackLayout>
         </Grid>
     </ContentPage.Content>
+</ContentPage>-->
+
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="coffeefrontend.LoginPage">
+  <ContentPage.Content>
+       <Grid>
+           <StackLayout x:Name="s1" Grid.Row="0" Grid.Column="0" BindingContext="{x:Reference Name=s1}"  >
+               <Image/>
+               <Label Text="Coffee Manager" FontSize="Small" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+           </StackLayout>
+           <StackLayout x:Name="s2" Grid.Row="1" Grid.Column="0" BindingContext="{x:Reference Name=s2}" Padding="10,10,10,10">
+               <Label Text="Username" FontSize="Micro"/>
+               <Entry x:Name="usernameEntry" FontSize="Micro"/>
+               <Label Text="Password" FontSize="Micro"/>
+               <Entry x:Name="passwordEntry" FontSize="Micro"/>
+               <Label Text="Role" FontSize="Micro"/>
+               <Entry x:Name="roleEntry" FontSize="Micro"/>
+           </StackLayout>
+           <StackLayout x:Name="s3" Grid.Row="3" Grid.Column="0" BindingContext="{x:Reference Name=s3}">
+               <Button Text="Register" Clicked="OnRegisterButtonClicked" HorizontalOptions="Center" FontSize="Micro"/>
+               <Button Text="Login" Clicked="OnLoginButtonClicked" HorizontalOptions="Center" FontSize="Micro"/>
+           </StackLayout>
+       </Grid>
+   </ContentPage.Content>
 </ContentPage>

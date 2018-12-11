@@ -6,7 +6,7 @@ using Xamarin.Forms;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace coffeefrontend.Views
+namespace coffeefrontend
 {
     public partial class LoginPage : ContentPage
     {
@@ -15,7 +15,7 @@ namespace coffeefrontend.Views
             InitializeComponent();
         }
 
-        static string url = "https://e741ef87.ngrok.io/data";
+        static string url = "https://513f497d.ngrok.io/data";
 
         private (bool, string, string, string) getUsernameAndPassword() 
         {

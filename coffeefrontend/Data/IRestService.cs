@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace coffeefrontend.Data
+namespace coffeefrontend
 {
     public interface IRestService
     {

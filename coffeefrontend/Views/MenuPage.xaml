@@ -3,8 +3,8 @@
     Title="Menu"
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:local="using:coffeefrontend.Views"
-    x:Class="coffeefrontend.Views.MenuPage">
+    xmlns:local="using:coffeefrontend"
+    x:Class="coffeefrontend.MenuPage">
     <ContentPage.Content>
         <StackLayout>
         <ListView x:Name="listView" x:FieldModifier="public" SeparatorVisibility="None">

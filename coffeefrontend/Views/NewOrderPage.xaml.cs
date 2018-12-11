@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-namespace coffeefrontend.Views
+namespace coffeefrontend
 {
     public partial class NewOrderPage : ContentPage
     {
