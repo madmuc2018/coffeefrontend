@@ -17,16 +17,16 @@
                 <StackLayout Padding="20,20">
 
                     <Label Text="ID" FontSize="Default"/>
-                    <Entry x:Name="id" FontSize="Small"/>
+                    <Entry x:Name="idEntry" FontSize="Small"/>
                     
                     <Label Text="Type"/>
-                    <Entry x:Name="type" FontSize="Small"/>
+                    <Entry x:Name="typeEntry" FontSize="Small"/>
                     
                     <Label Text="Quantity" FontSize="Default"/>
-                    <Entry x:Name="quantity" FontSize="Small"/>
+                    <Entry x:Name="quantityEntry" FontSize="Small"/>
                     
                     <Label Text="From" FontSize="Default"/>
-                    <Entry x:Name="from" FontSize="Small"/>
+                    <Entry x:Name="fromEntry" FontSize="Small"/>
                     
                     <Button Text="Place Order" HorizontalOptions="Center" Clicked="OnPlaceOrderClicked"/>
                 </StackLayout>

@@ -7,10 +7,12 @@ namespace coffeefrontend
 {
     public partial class App : Application
     {
+        public static CoffeefrontendManager Manager { get; private set; }
+
         public App()
         {
             InitializeComponent();
-
+            Manager = new CoffeefrontendManager(new RestService());
             MainPage = new LoginPage();
         }
 

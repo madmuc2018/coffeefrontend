@@ -15,8 +15,6 @@ namespace coffeefrontend
             InitializeComponent();
         }
 
-        static string url = "https://513f497d.ngrok.io/data";
-
         private (bool, string, string, string) getUsernameAndPassword() 
         {
             string username = usernameEntry.Text;
@@ -39,29 +37,16 @@ namespace coffeefrontend
             {
                 return;
             }
-            HttpClient client = new HttpClient();
-            client.MaxResponseContentBufferSize = 256000;
-            var uri = new Uri($"{url}/register");
-            HttpResponseMessage response = null;
-            try
+
+            (string error, string result) = await App.Manager.RegisterTask(username, password, role);
+
+            if (error != null)
             {
-                var content = new StringContent(
-                    $"{{\"username\": \"{username}\", \"password\": \"{password}\", \"role\": \"{role}\"}}",
-                    Encoding.UTF8,
-                    "application/json");
-                response = await client.PostAsync(uri, content);
-                if (!response.IsSuccessStatusCode)
-                {
-                    await DisplayAlert("Alert", "Cannot register", "Close");
-                    Debug.WriteLine(@"             ERROR {0}", response);
-                    return;
-                }
-                await DisplayAlert("Register", "Done, you can now login", "Close");
+                await DisplayAlert("Alert", error, "Close");
+                return;
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(@"             ERROR {0}", ex.Message);
-            }
+
+            await DisplayAlert("Status", result, "Close");
         }
 
         public async void OnLoginButtonClicked(object sender, EventArgs e)
@@ -70,52 +55,21 @@ namespace coffeefrontend
 
             if (!valid)
             {
-                return; 
+                return;
             }
 
-            HttpClient client = new HttpClient();
-            client.MaxResponseContentBufferSize = 256000;
-            var uri = new Uri($"{url}/login");
-            HttpResponseMessage response = null;
-            try
+            (string error, string token) = await App.Manager.LoginTask(username, password);
+
+            if (error != null)
             {
-                var content = new StringContent(
-                    $"{{\"username\": \"{username}\", \"password\": \"{password}\"}}",
-                    Encoding.UTF8,
-                    "application/json");
-                response = await client.PostAsync(uri, content);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    await DisplayAlert("Alert", "Cannot Login", "Close");
-                    Debug.WriteLine(@"             ERROR {0}", response);
-                    return;
-                }
-
-                var loginResp = JsonConvert
-                    .DeserializeObject<Dictionary<string, string>>(
-                    (
-                        await response.Content.ReadAsStringAsync()
-                    )
-                    .ToString());
-
-                string token;
-
-                if (!loginResp.TryGetValue("token", out token))
-                {
-                    await DisplayAlert("Alert", "Cannot parse login data", "Close");
-                    return;
-                }
-
-                //Can use neither Xamarin Auth or Xamarin Essentials Secure storage here because requires Dev ID
-                Application.Current.Properties["coffee_token"] = token;
-                await Application.Current.SavePropertiesAsync();
-                Application.Current.MainPage = new RootPage();
+                await DisplayAlert("Alert", error, "Close");
+                return;
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(@"             ERROR {0}", ex.Message);
-            }
+
+            //Can use neither Xamarin Auth or Xamarin Essentials Secure storage here because requires Dev ID
+            Application.Current.Properties["coffee_token"] = token;
+            await Application.Current.SavePropertiesAsync();
+            Application.Current.MainPage = new RootPage();
         }
     }
 }
