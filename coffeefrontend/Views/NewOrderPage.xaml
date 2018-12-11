@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="coffeefrontend.Views.NewOrderPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*" x:Name="firstRow" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout x:Name="s2" Grid.Row="0" Grid.Column="0" BindingContext="{x:Reference Name=s2}">
+                <Label Text="Include Order" FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                <StackLayout Padding="20,20">
+
+                    <Label Text="ID" FontSize="Default"/>
+                    <Entry x:Name="id" FontSize="Small"/>
+                    
+                    <Label Text="Type"/>
+                    <Entry x:Name="type" FontSize="Small"/>
+                    
+                    <Label Text="Quantity" FontSize="Default"/>
+                    <Entry x:Name="quantity" FontSize="Small"/>
+                    
+                    <Label Text="From" FontSize="Default"/>
+                    <Entry x:Name="from" FontSize="Small"/>
+                    
+                    <Button Text="Place Order" HorizontalOptions="Center" Clicked="OnPlaceOrderClicked"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout x:Name="s3" Grid.Row="1" Grid.Column="0" BindingContext="{x:Reference Name=s3}">
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
