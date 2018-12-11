@@ -1,5 +1,35 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="coffeefrontend.Views.MenuPage">
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    Title="Menu"
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:local="using:coffeefrontend.Views"
+    x:Class="coffeefrontend.Views.MenuPage">
     <ContentPage.Content>
+        <StackLayout>
+        <ListView x:Name="listView" x:FieldModifier="public" SeparatorVisibility="None">
+           <ListView.ItemsSource>
+                <x:Array Type="{x:Type local:MenuPageItem}">
+                    <local:MenuPageItem Title="Home" TargetType="{x:Type local:HomePage}" />
+                    <local:MenuPageItem Title="Include" TargetType="{x:Type local:NewOrderPage}" />
+                    <local:MenuPageItem Title="Update" TargetType="{x:Type local:UpdateOrderPage}" />
+                </x:Array>
+            </ListView.ItemsSource>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding IconSource}" />
+                            <Label Grid.Column="1" Text="{Binding Title}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
     </ContentPage.Content>
 </ContentPage>
