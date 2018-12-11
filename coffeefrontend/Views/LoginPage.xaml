@@ -20,7 +20,9 @@
                     <Label Text="Username" FontSize="Default"/>
                     <Entry x:Name="usernameEntry" FontSize="Small"/>
                     <Label Text="Password"/>
-                    <Entry x:Name="passwordEntry" IsPassword="true"/>
+                    <Entry x:Name="passwordEntry"/>
+                    <Label Text="Role" FontSize="Default"/>
+                    <Entry x:Name="roleEntry" FontSize="Small"/>
                     <Button Text="Register" Clicked="OnRegisterButtonClicked" HorizontalOptions="Center"/>
                     <Button Text="Login" Clicked="OnLoginButtonClicked" HorizontalOptions="Center"/>
                 </StackLayout>
