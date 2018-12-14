@@ -20,7 +20,10 @@
             </StackLayout>
             <StackLayout x:Name="s2" Grid.Row="1" Grid.Column="0" BindingContext="{x:Reference Name=s2}">
                 <StackLayout>
-                    <ListView x:Name="listView" Margin="20" ItemSelected="OnItemSelected">
+                    <ListView 
+                        x:Name="listView" 
+                        Margin="20" 
+                        ItemSelected="OnOrderSelected">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

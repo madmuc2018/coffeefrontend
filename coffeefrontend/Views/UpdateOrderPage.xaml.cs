@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Xamarin.Forms;
 
 namespace coffeefrontend
 {
     public partial class UpdateOrderPage : ContentPage
     {
-        public UpdateOrderPage()
+        UpdatePageViewModel viewModel;
+
+        public UpdateOrderPage(UpdatePageViewModel viewModel)
         {
             InitializeComponent();
-        }
-        public void OnUpdateOrderClicked(object sender, EventArgs e)
-        {
+            BindingContext = this.viewModel = viewModel;
         }
     }
 }

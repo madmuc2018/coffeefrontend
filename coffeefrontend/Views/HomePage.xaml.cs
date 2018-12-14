@@ -36,8 +36,10 @@ namespace coffeefrontend
         {
         }
 
-        void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        async void OnOrderSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            var order = e.SelectedItem as Order;
+            await Navigation.PushAsync(new UpdateOrderPage(new UpdatePageViewModel(order)));
         }
     }
 }
