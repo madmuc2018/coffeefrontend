@@ -23,14 +23,24 @@ namespace coffeefrontend
             return restService.Register(username, password, role);
         }
 
-        public Task<(string, string)> PostOrderTask(string token, Order order)
+        public Task<(string, string)> AddOrderTask(string token, Order order)
         {
-            return restService.PostOrder(token, order);
+            return restService.AddOrder(token, order);
         }
 
-        public Task<(string, List<OrderResp>)> GetAllOrdersTask(string token)
+        public Task<(string, List<OrderResp>)> GetOrdersTask(string token)
         {
-            return restService.GetAllOrders(token);
+            return restService.GetOrders(token);
+        }
+
+        public Task<(string, string)> UpdateOrderTask(string token, string guid, Order order)
+        {
+            return restService.UpdateOrder(token, guid, order);
+        }
+
+        public Task<(string, string)> GrantAccessTask(string token, string guid, List<string> grantedUsers)
+        {
+            return restService.GrantAccess(token, guid, grantedUsers);
         }
     }
 }

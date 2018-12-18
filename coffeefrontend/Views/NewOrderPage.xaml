@@ -1,38 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:coffeefrontend;assembly=coffeefrontend"
     x:Class="coffeefrontend.NewOrderPage">
+    
+    <ContentPage.BindingContext>
+        <local:NewOrderPageViewModel />
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="4*" x:Name="firstRow" />
-                <RowDefinition Height="2*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100*" />
-            </Grid.ColumnDefinitions>
-            <StackLayout x:Name="s2" Grid.Row="0" Grid.Column="0" BindingContext="{x:Reference Name=s2}">
-                <Label Text="Include Order" FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                <StackLayout Padding="20,20">
+        <StackLayout Padding="20,20">
+            <Label Text="Include Coffee" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
 
-                    <Label Text="ID" FontSize="Default"/>
-                    <Entry x:Name="idEntry" FontSize="Small"/>
-                    
-                    <Label Text="Type"/>
-                    <Entry x:Name="typeEntry" FontSize="Small"/>
-                    
-                    <Label Text="Quantity" FontSize="Default"/>
-                    <Entry x:Name="quantityEntry" FontSize="Small"/>
-                    
-                    <Label Text="From" FontSize="Default"/>
-                    <Entry x:Name="fromEntry" FontSize="Small"/>
-                    
-                    <Button Text="Place Order" HorizontalOptions="Center" Clicked="OnPlaceOrderClicked"/>
-                </StackLayout>
-            </StackLayout>
-            <StackLayout x:Name="s3" Grid.Row="1" Grid.Column="0" BindingContext="{x:Reference Name=s3}">
-            </StackLayout>
-        </Grid>
+            <Label Text="ID"/>
+            <Entry Text="{Binding NewOder.id, Mode=TwoWay}"/>
+
+            <Label Text="Type"/>
+            <Entry Text="{Binding NewOder.type, Mode=TwoWay}"/>
+
+            <Label Text="Quantity"/>
+            <Entry Text="{Binding NewOder.quantity, Mode=TwoWay}"/>
+
+            <Label Text="From"/>
+            <Entry Text="{Binding NewOder.from, Mode=TwoWay}"/>
+
+            <Button Text="Place Order" HorizontalOptions="Center" Command="{Binding SubmitCommand}"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

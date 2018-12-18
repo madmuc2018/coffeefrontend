@@ -1,39 +1,31 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace coffeefrontend
 {
-    public class UpdatePageViewModel : INotifyPropertyChanged
+    public class UpdatePageViewModel : BaseViewModel
     {
         private Order selectedOrder;
+        private string guid;
         public ICommand SubmitCommand { protected set; get; }
 
-        public UpdatePageViewModel(Order SelectedOrder)
+        public UpdatePageViewModel(Order SelectedOrder, string guid)
         {
             this.selectedOrder = SelectedOrder;
-            SubmitCommand = new Command(() =>
+            this.guid = guid;
+            SubmitCommand = new Command(async () =>
             {
-                Debug.WriteLine($"Submitted {selectedOrder.id} {selectedOrder.status}");
+                (string error, string result) = await App.Manager.UpdateOrderTask(Application.Current.Properties["coffee_token"].ToString(), guid, selectedOrder);
+                if (error != null)
+                    await Application.Current.MainPage.DisplayAlert("Alert", "Cannot update order", "Close");
+                else
+                    await Application.Current.MainPage.DisplayAlert("Result", "Order updated", "Close");
             });
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public Order SelectedOrder
         {
-            get
-            {
-                return selectedOrder;
-            }
+            get => selectedOrder;
             set
             {
                 if (!selectedOrder.Equals(value))

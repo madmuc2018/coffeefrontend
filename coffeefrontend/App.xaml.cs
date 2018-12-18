@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -11,6 +13,9 @@ namespace coffeefrontend
 
         public App()
         {
+            // For debugging bindings
+            Xamarin.Forms.Internals.Log.Listeners.Add(new DelegateLogListener((arg1, arg2) => Debug.WriteLine(arg2)));
+
             InitializeComponent();
             Manager = new CoffeefrontendManager(new RestService());
             MainPage = new LoginPage();

@@ -15,31 +15,27 @@ namespace coffeefrontend
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            (string error, List<OrderResp> orders) = (await App.Manager.GetAllOrdersTask(Application.Current.Properties["coffee_token"].ToString()));
+            (string error, List<OrderResp> orders) = (await App.Manager.GetOrdersTask(Application.Current.Properties["coffee_token"].ToString()));
            
             if (error != null)
             { 
                 await DisplayAlert("Alert", error, "Close");
                 return;
             }
-
-            var items = new Order[orders.Count];
-            for(int i = 0;  i < orders.Count; i++)
-            {
-                items[i] = orders[i].data;
-            }
-
-            listView.ItemsSource = items;
+            
+            BindingContext = new HomePageViewModel(orders, new Command(NavigateToUpdateOrderPage), new Command(NavigateToGrantAccessPage));
         }
 
-        void OnAddItemClicked(object sender, EventArgs e)
+        private async void NavigateToUpdateOrderPage(object selectedOject)
         {
+            var selectedOrderResp = selectedOject as OrderResp;
+            await Navigation.PushAsync(new UpdateOrderPage(new UpdatePageViewModel(selectedOrderResp.data, selectedOrderResp.guid)));
         }
 
-        async void OnOrderSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void NavigateToGrantAccessPage(object selectedOject)
         {
-            var order = e.SelectedItem as Order;
-            await Navigation.PushAsync(new UpdateOrderPage(new UpdatePageViewModel(order)));
+            var selectedOrderResp = selectedOject as OrderResp;
+            await Navigation.PushAsync(new GrantAccessPage(new GrantAccessPageViewModel(selectedOrderResp.data.id, selectedOrderResp.guid)));
         }
     }
 }

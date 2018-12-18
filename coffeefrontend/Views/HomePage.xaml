@@ -2,46 +2,47 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="coffeefrontend.HomePage">
+    x:Class="coffeefrontend.HomePage"
+    x:Name="HomePageVM">
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*" x:Name="firstRow" />
-                <RowDefinition Height="50*" />
-                <RowDefinition Height="2*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100*" />
-            </Grid.ColumnDefinitions>
-            
-            <StackLayout x:Name="s1" Grid.Row="0" Grid.Column="0" BindingContext="{x:Reference Name=s1}"  >
-                <Image/>
-                <Label Text="Orders" FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-            </StackLayout>
-            <StackLayout x:Name="s2" Grid.Row="1" Grid.Column="0" BindingContext="{x:Reference Name=s2}">
-                <StackLayout>
-                    <ListView 
-                        x:Name="listView" 
-                        Margin="20" 
-                        ItemSelected="OnOrderSelected">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <StackLayout Padding="20,0,0,0" HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                                        <Label Text="{Binding id}" VerticalTextAlignment="Center" />
-                                        <Label Text="{Binding type}" VerticalTextAlignment="Center" />
-                                        <Label Text="{Binding quantity}" VerticalTextAlignment="Center" />
-                                        <Label Text="{Binding from}" VerticalTextAlignment="Center" />
-                                        <Label Text="{Binding status}" VerticalTextAlignment="Center" />
-                                    </StackLayout>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackLayout>
-            </StackLayout>
-            <StackLayout x:Name="s3" Grid.Row="2" Grid.Column="0" BindingContext="{x:Reference Name=s3}">
-            </StackLayout>
-        </Grid>
+        <StackLayout>
+            <Label Text="Inventory" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
+            <ListView ItemsSource="{Binding OrderResps}" RowHeight="120">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                             <ViewCell.ContextActions>
+                                <MenuItem 
+                                    Command="{Binding Path=BindingContext.ToUpdate,Source={x:Reference HomePageVM}}" 
+                                    CommandParameter="{Binding .}" 
+                                    Text="Update" />
+                                 <MenuItem 
+                                    Command="{Binding Path=BindingContext.ToGrantAccess,Source={x:Reference HomePageVM}}" 
+                                    CommandParameter="{Binding .}" 
+                                    Text="Grant Access" />
+                             </ViewCell.ContextActions>
+                             <StackLayout VerticalOptions="CenterAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Name: " Font="Bold"/>
+                                    <Label Text="{Binding data.id}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Quantity: " Font="Bold"/>
+                                    <Label Text="{Binding data.quantity}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Variety: " Font="Bold"/>
+                                    <Label Text="{Binding data.type}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Status: " Font="Bold"/>
+                                    <Label Text="{Binding data.status}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

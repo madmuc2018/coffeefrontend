@@ -2,11 +2,10 @@
 
 namespace coffeefrontend
 {
-    public partial class UpdateOrderPage : ContentPage
+    public partial class GrantAccessPage : ContentPage
     {
-        UpdatePageViewModel viewModel;
-
-        public UpdateOrderPage(UpdatePageViewModel viewModel)
+        GrantAccessPageViewModel viewModel;
+        public GrantAccessPage(GrantAccessPageViewModel viewModel)
         {
             InitializeComponent();
             BindingContext = this.viewModel = viewModel;

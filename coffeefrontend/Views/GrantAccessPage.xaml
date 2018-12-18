@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:coffeefrontend;assembly=coffeefrontend"
+    x:Class="coffeefrontend.GrantAccessPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Grant Access" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
+            <Label Text="{Binding OrderID}" FontSize="Micro" HorizontalTextAlignment="Center"/>
+            <Entry Placeholder="Username" Text="{Binding Username, Mode=TwoWay}"/>
+            <Button Text="Grant" Command="{Binding SubmitCommand}" HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

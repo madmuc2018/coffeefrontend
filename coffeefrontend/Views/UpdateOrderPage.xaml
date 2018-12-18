@@ -5,8 +5,8 @@
     xmlns:local="clr-namespace:coffeefrontend;assembly=coffeefrontend"
     x:Class="coffeefrontend.UpdateOrderPage">
     <ContentPage.Content>
-        <StackLayout Padding="20">
-            <Label Text="Update Order" FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+        <StackLayout>
+            <Label Text="Update Coffee" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
 
             <Label Text="ID" FontSize="Small"/>
             <Entry Text="{Binding SelectedOrder.id, Mode=TwoWay}" FontSize="Small"/>

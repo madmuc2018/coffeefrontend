@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
 namespace coffeefrontend
@@ -20,114 +21,95 @@ namespace coffeefrontend
             client.MaxResponseContentBufferSize = 256000;
         }
 
-        public async Task<(string, string)> Login(string username, string password)
+        private async Task<(string, T)> doSendRequest<T>(string endpoint, HttpMethod httpMethod, string token = null, object requestBody = null, [CallerMemberName] string caller = "Unknown method")
         {
-            var uri = new Uri($"{url}/login");
+            var uri = new Uri($"{url}{endpoint}");
             HttpResponseMessage response = null;
-            string token;
             try
             {
-                var content = new StringContent($"{{\"username\": \"{username}\", \"password\": \"{password}\"}}",Encoding.UTF8,"application/json");
-                response = await client.PostAsync(uri, content);
-                if (!response.IsSuccessStatusCode)
-                {
-                    Debug.WriteLine(@"             ERROR {0}", response);
-                    return ("Cannot Login", null);
-                }
-
-                var loginResp = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
-
-                if (!loginResp.TryGetValue("token", out token))
-                {
-                    return ("Cannot parse login data", null);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(@"             ERROR {0}", ex.Message);
-                return ("Unexpected error login", null);
-            }
-
-            return (null, token);
-        }
-
-        public async Task<(string, string)> Register(string username, string password, string role)
-        {
-            var uri = new Uri($"{url}/register");
-            HttpResponseMessage response = null;
-            string result;
-            try
-            {
-                var content = new StringContent($"{{\"username\": \"{username}\", \"password\": \"{password}\", \"role\": \"{role}\"}}",Encoding.UTF8,"application/json");
-                response = await client.PostAsync(uri, content);
-                if (!response.IsSuccessStatusCode)
-                {
-                    Debug.WriteLine(@"             ERROR {0}", response);
-                    return ("Cannot register", null);
-                }
-                result = "Done, you can now login";
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(@"             ERROR {0}", ex.Message);
-                return ("Unexpected error register", null);
-            }
-
-            return (null, result);
-        }
-
-        public async Task<(string, List<OrderResp>)> GetAllOrders(string token)
-        {
-            var uri = new Uri($"{url}/");
-            HttpResponseMessage response = null;
-            List <OrderResp> result;
-            try
-            {
-                var req = new HttpRequestMessage(HttpMethod.Get, uri);
-                req.Headers.Add("Authorization", $"Bearer {token}");
+                var req = new HttpRequestMessage(httpMethod, uri);
+                if (token != null)
+                    req.Headers.Add("Authorization", $"Bearer {token}");
+                if (requestBody != null)
+                    req.Content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
                 response = await client.SendAsync(req);
                 if (!response.IsSuccessStatusCode)
                 {
                     Debug.WriteLine(@"             ERROR {0}", response);
-                    return ("Cannot get all data", null);
+                    return ($"Cannot {caller}", default(T));
                 }
-                var resultString = (await response.Content.ReadAsStringAsync()).ToString();
-                result = JsonConvert.DeserializeObject<List<OrderResp>>(resultString);
+                string resultString = (await response.Content.ReadAsStringAsync()).ToString();
+                T result = JsonConvert.DeserializeObject<T>(typeof(T).Equals(typeof(IgnoreResponseContent)) ? $"{{\"message\": \"{caller} succeeded\"}}" : resultString);
+                return (null, result);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(@"             ERROR {0}", ex.Message);
-                return ("Unexpected error get all data", null);
+                return ($"Unexpected error from {caller}", default(T));
             }
-
-            return (null, result);
         }
 
-        public async Task<(string, string)> PostOrder(string token, Order order)
+        public async Task<(string, string)> Register(string u, string p, string r)
         {
-            var uri = new Uri($"{url}/");
-            HttpResponseMessage response = null;
-            string result;
-            try
-            {
-                var req = new HttpRequestMessage(HttpMethod.Post, uri);
-                req.Headers.Add("Authorization", $"Bearer {token}");
-                req.Content = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8, "application/json");
-                response = await client.SendAsync(req);
-                if (!response.IsSuccessStatusCode)
-                {
-                    Debug.WriteLine(@"             ERROR {0}", response);
-                    return ("Cannot include order", null);
-                }
-                result = (await response.Content.ReadAsStringAsync()).ToString();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(@"             ERROR {0}", ex.Message);
-                return ("Unexpected error include order", null);
-            }
-
-            return (null, result);
+            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>("/register", HttpMethod.Post, null, new RegisterBody { username = u, password = p, role = r });
+            return (error, error ?? resp.message);
         }
+
+        public async Task<(string, string)> Login(string u, string p)
+        {
+            (string error, LoginResponse resp) = await doSendRequest<LoginResponse>("/login", HttpMethod.Post, null, new LoginBody { username = u, password = p });
+            return (error, error ?? resp.token);
+        }
+
+        public async Task<(string, List<OrderResp>)> GetOrders(string token)
+        {
+            return await doSendRequest<List<OrderResp>>("/", HttpMethod.Get, token);
+        }
+
+        public async Task<(string, string)> AddOrder(string token, Order order)
+        {
+            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>("/", HttpMethod.Post, token, order);
+            return (error, error ?? resp.message);
+        }
+
+        public async Task<(string, string)> UpdateOrder(string token, string guid, Order order)
+        {
+            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>($"/{guid}", HttpMethod.Put, token, order);
+            return (error, error ?? resp.message);
+        }
+
+        public async Task<(string, string)> GrantAccess(string token, string guid, List<string> gus)
+        {
+            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>($"/{guid}/grant", HttpMethod.Put, token, new GrantAccessBody { grantedUsers = gus });
+            return (error, error ?? resp.message);
+        }
+    }
+
+    class LoginBody
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+    }
+
+    class LoginResponse
+    { 
+        public string token { get; set; }
+    }
+
+    class RegisterBody
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+        public string role { get; set; }
+    }
+
+    class IgnoreResponseContent
+    { 
+        public string message { get; set; }
+    }
+
+    class GrantAccessBody
+    { 
+        public List<string> grantedUsers { get; set; }
     }
 }
