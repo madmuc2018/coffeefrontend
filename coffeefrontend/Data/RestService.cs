@@ -85,22 +85,9 @@ namespace coffeefrontend
         }
     }
 
-    class LoginBody
-    {
-        public string username { get; set; }
-        public string password { get; set; }
-    }
-
     class LoginResponse
     { 
         public string token { get; set; }
-    }
-
-    class RegisterBody
-    {
-        public string username { get; set; }
-        public string password { get; set; }
-        public string role { get; set; }
     }
 
     class IgnoreResponseContent
