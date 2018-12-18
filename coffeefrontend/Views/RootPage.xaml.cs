@@ -15,12 +15,12 @@ namespace coffeefrontend
                 Debug.WriteLine(Application.Current.Properties["coffee_token"]);
                 InitializeComponent();
 
-                menuPage.listView.ItemSelected += OnItemSelected;
-
                 if (Device.RuntimePlatform == Device.UWP)
                 {
                     MasterBehavior = MasterBehavior.Popover;
                 }
+
+                Master = new MenuPage(new Command(SelectPage));
             }
             catch (KeyNotFoundException)
             {
@@ -28,13 +28,11 @@ namespace coffeefrontend
             }
         }
 
-        void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void SelectPage(object selectedOject)
         {
-            var item = e.SelectedItem as MenuPageItem;
-            if (item != null)
+            if (selectedOject is MenuPageItem selectedPage)
             {
-                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
-                menuPage.listView.SelectedItem = null;
+                Detail = new NavigationPage((Page)Activator.CreateInstance(selectedPage.TargetType));
                 IsPresented = false;
             }
         }

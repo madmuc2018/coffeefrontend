@@ -3,9 +3,6 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
                   xmlns:local="clr-namespace:coffeefrontend;assembly=coffeefrontend"
                   x:Class="coffeefrontend.RootPage">
-  <MasterDetailPage.Master>
-    <local:MenuPage x:Name="menuPage" />
-  </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
         <NavigationPage>
             <x:Arguments>
