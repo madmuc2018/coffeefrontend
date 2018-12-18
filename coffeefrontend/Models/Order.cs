@@ -9,6 +9,9 @@ namespace coffeefrontend
         public string from { get; set; }
         public string status { get; set; }
 
+        public Order()
+        { }
+
         public Order(string id, string type, string quantity, string from, string status)
         {
             this.id = id;

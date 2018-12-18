@@ -11,6 +11,7 @@ namespace coffeefrontend
 
         public NewOrderPageViewModel()
         {
+            order = new Order();
             SubmitCommand = new Command(async () =>
             {
                 order.status = "placed";
