@@ -9,7 +9,8 @@ namespace coffeefrontend
         static readonly List<MenuPageItem> coffeePages = new List<MenuPageItem>()
         {
             new MenuPageItem("Home", typeof(HomePage)),
-            new MenuPageItem("Include", typeof(NewOrderPage))
+            new MenuPageItem("Include", typeof(NewOrderPage)),
+            new MenuPageItem("Logout", null)
         };
 
         public ICommand SelectPageCommand { protected set; get; }

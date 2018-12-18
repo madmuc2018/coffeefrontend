@@ -32,8 +32,16 @@ namespace coffeefrontend
         {
             if (selectedOject is MenuPageItem selectedPage)
             {
-                Detail = new NavigationPage((Page)Activator.CreateInstance(selectedPage.TargetType));
-                IsPresented = false;
+                if (selectedPage.Title == "Logout")
+                {
+                    Application.Current.Properties["coffee_token"] = null;
+                    Application.Current.MainPage = new LoginPage();
+                }
+                else if (selectedPage.TargetType != null)
+                {
+                    Detail = new NavigationPage((Page)Activator.CreateInstance(selectedPage.TargetType));
+                    IsPresented = false;
+                }
             }
         }
     }
