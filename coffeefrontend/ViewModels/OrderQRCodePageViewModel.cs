@@ -6,12 +6,14 @@ using Newtonsoft.Json;
 
 namespace coffeefrontend
 {
-    public class OrderDetailsPageViewModel : BaseViewModel
+    public class OrderQRCodePageViewModel : BaseViewModel
     {
         private SKBitmap skbmp;
+        public string OrderID { get; }
 
-        public OrderDetailsPageViewModel(Order order)
+        public OrderQRCodePageViewModel(Order order)
         {
+            OrderID = order.id;
             BitMatrix bmqr = new QRCodeWriter().encode(JsonConvert.SerializeObject(order), ZXing.BarcodeFormat.QR_CODE, 750, 750);
             skbmp = new SKBitmap(bmqr.Width, bmqr.Height);
             for (int i = 0; i < bmqr.Width; i++)

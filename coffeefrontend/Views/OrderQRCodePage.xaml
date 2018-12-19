@@ -2,9 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-             x:Class="coffeefrontend.OrderDetailsPage">
+             x:Class="coffeefrontend.OrderQRCodePage">
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="{Binding OrderID, StringFormat='QR Code for Order {0:N}'}" 
+                   FontSize="Large"
+                   Font="Bold"
+                   HorizontalOptions="CenterAndExpand"/>
             <skia:SKCanvasView
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"

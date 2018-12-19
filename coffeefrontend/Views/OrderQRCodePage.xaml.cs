@@ -3,14 +3,14 @@ using Xamarin.Forms;
 
 namespace coffeefrontend
 {
-    public partial class OrderDetailsPage : ContentPage
+    public partial class OrderQRCodePage : ContentPage
     {
-        OrderDetailsPageViewModel viewModel;
+        OrderQRCodePageViewModel viewModel;
 
-        public OrderDetailsPage(Order order)
+        public OrderQRCodePage(Order order)
         {
             InitializeComponent();
-            BindingContext = this.viewModel = new OrderDetailsPageViewModel(order);
+            BindingContext = this.viewModel = new OrderQRCodePageViewModel(order);
         }
 
         public void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)

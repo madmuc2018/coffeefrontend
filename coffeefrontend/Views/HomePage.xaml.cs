@@ -41,7 +41,7 @@ namespace coffeefrontend
         private async void GenerateQRCode(object selectedOject)
         {
             var selectedOrderResp = selectedOject as OrderResp;
-            await Navigation.PushAsync(new OrderDetailsPage(selectedOrderResp.data));
+            await Navigation.PushAsync(new OrderQRCodePage(selectedOrderResp.data));
         }
     }
 }
