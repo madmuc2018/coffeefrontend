@@ -23,7 +23,7 @@ namespace coffeefrontend
                 return;
             }
             
-            BindingContext = new HomePageViewModel(orders, new Command(NavigateToUpdateOrderPage), new Command(NavigateToGrantAccessPage));
+            BindingContext = new HomePageViewModel(orders, new Command(NavigateToUpdateOrderPage), new Command(NavigateToGrantAccessPage), new Command(GenerateQRCode));
         }
 
         private async void NavigateToUpdateOrderPage(object selectedOject)
@@ -38,20 +38,10 @@ namespace coffeefrontend
             await Navigation.PushAsync(new GrantAccessPage(new GrantAccessPageViewModel(selectedOrderResp.data.id, selectedOrderResp.guid)));
         }
 
-        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void GenerateQRCode(object selectedOject)
         {
-            if (e.Item == null)
-            {
-                return;
-            }
-
-            await Navigation.PushAsync(new OrderDetailsPage(e.Item as OrderResp));
-
-            /*
-            await DisplayAlert("Item Tapped"+ ((CoffeeOrder)((ListView)sender).SelectedItem).process, "An item was tapped.", "OK");
-            */
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
+            var selectedOrderResp = selectedOject as OrderResp;
+            await Navigation.PushAsync(new OrderDetailsPage(selectedOrderResp.data));
         }
     }
 }

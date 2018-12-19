@@ -8,13 +8,15 @@ namespace coffeefrontend
     {
         public ICommand ToUpdate { protected set; get; }
         public ICommand ToGrantAccess { protected set; get; }
+        public ICommand GenerateQRCode { protected set; get; }
         public List<OrderResp> OrderResps { get; }
 
-        public HomePageViewModel(List<OrderResp> orders, Command toUpdate, Command toGrantAccess)
+        public HomePageViewModel(List<OrderResp> orders, Command toUpdate, Command toGrantAccess, Command generateQRCode)
         {
             this.OrderResps = orders;
             ToUpdate = toUpdate;
             ToGrantAccess = toGrantAccess;
+            GenerateQRCode = generateQRCode;
         }
     }
 }

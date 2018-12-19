@@ -7,11 +7,15 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Inventory" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
-            <ListView ItemsSource="{Binding OrderResps}" ItemTapped="Handle_ItemTapped" RowHeight="120">
+            <ListView ItemsSource="{Binding OrderResps}" RowHeight="120">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                              <ViewCell.ContextActions>
+                                <MenuItem 
+                                    Command="{Binding Path=BindingContext.GenerateQRCode,Source={x:Reference HomePageVM}}" 
+                                    CommandParameter="{Binding .}" 
+                                    Text="QR Code" />
                                 <MenuItem 
                                     Command="{Binding Path=BindingContext.ToUpdate,Source={x:Reference HomePageVM}}" 
                                     CommandParameter="{Binding .}" 
