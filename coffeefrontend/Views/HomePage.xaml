@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Inventory" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
-            <ListView ItemsSource="{Binding OrderResps}" RowHeight="120">
+            <ListView ItemsSource="{Binding OrderResps}" ItemTapped="Handle_ItemTapped" RowHeight="120">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

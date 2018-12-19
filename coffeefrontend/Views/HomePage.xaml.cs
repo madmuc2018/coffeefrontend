@@ -37,5 +37,21 @@ namespace coffeefrontend
             var selectedOrderResp = selectedOject as OrderResp;
             await Navigation.PushAsync(new GrantAccessPage(new GrantAccessPageViewModel(selectedOrderResp.data.id, selectedOrderResp.guid)));
         }
+
+        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null)
+            {
+                return;
+            }
+
+            await Navigation.PushAsync(new OrderDetailsPage(e.Item as OrderResp));
+
+            /*
+            await DisplayAlert("Item Tapped"+ ((CoffeeOrder)((ListView)sender).SelectedItem).process, "An item was tapped.", "OK");
+            */
+            //Deselect Item
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }
