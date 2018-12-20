@@ -13,7 +13,7 @@ namespace coffeefrontend
     {
         HttpClient client;
 
-        static string url = "http://0.0.0.0:9000/data";
+        static string url = "https://431524de.ngrok.io/data";
 
         public RestService()
         {
