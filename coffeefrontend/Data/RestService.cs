@@ -13,7 +13,7 @@ namespace coffeefrontend
     {
         HttpClient client;
 
-        static string url = "https://431524de.ngrok.io/data";
+        static string url = "http://0bd870e2.ngrok.io/data";
 
         public RestService()
         {
@@ -82,6 +82,11 @@ namespace coffeefrontend
         {
             (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>($"/{guid}/grant", HttpMethod.Put, token, new GrantAccessBody { grantedUsers = gus });
             return (error, error ?? resp.message);
+        }
+
+        public async Task<(string, List<Order>)> GetHistory(string token, string guid)
+        {
+            return await doSendRequest<List<Order>>($"/{guid}/trace", HttpMethod.Get, token);
         }
     }
 

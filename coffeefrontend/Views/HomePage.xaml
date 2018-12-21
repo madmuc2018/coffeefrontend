@@ -24,7 +24,11 @@
                                     Command="{Binding Path=BindingContext.ToGrantAccess,Source={x:Reference HomePageVM}}" 
                                     CommandParameter="{Binding .}" 
                                     Text="Grant Access" />
-                             </ViewCell.ContextActions>
+                                <MenuItem 
+                                    Command="{Binding Path=BindingContext.GetHistory,Source={x:Reference HomePageVM}}" 
+                                    CommandParameter="{Binding .}" 
+                                    Text="Coffee History" />
+                            </ViewCell.ContextActions>
                              <StackLayout VerticalOptions="CenterAndExpand">
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="Name: " Font="Bold"/>
