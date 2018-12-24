@@ -43,5 +43,10 @@ namespace coffeefrontend
             var selectedOrderResp = selectedOject as OrderResp;
             await Navigation.PushAsync(new OrderQRCodePage(selectedOrderResp.data));
         }
+
+        public async void asyncOpenQRCodeScanner(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new QRCodeScanPage());
+        }
     }
 }

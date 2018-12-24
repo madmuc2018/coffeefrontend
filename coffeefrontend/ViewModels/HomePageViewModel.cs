@@ -9,6 +9,8 @@ namespace coffeefrontend
         public ICommand ToUpdate { protected set; get; }
         public ICommand ToGrantAccess { protected set; get; }
         public ICommand GenerateQRCode { protected set; get; }
+
+        public ICommand QRScanner { protected set; get; }
         public List<OrderResp> OrderResps { get; }
 
         public HomePageViewModel(List<OrderResp> orders, Command toUpdate, Command toGrantAccess, Command generateQRCode)
