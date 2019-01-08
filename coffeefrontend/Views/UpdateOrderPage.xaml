@@ -5,25 +5,42 @@
     xmlns:local="clr-namespace:coffeefrontend;assembly=coffeefrontend"
     x:Class="coffeefrontend.UpdateOrderPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Update Coffee" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
+        <ScrollView>
+            <StackLayout Padding="20,20">
+                <Label Text="Update Coffee" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
 
-            <Label Text="ID" FontSize="Small"/>
-            <Entry Text="{Binding SelectedOrder.id, Mode=TwoWay}" FontSize="Small"/>
-            
-            <Label Text="Type"/>
-            <Entry Text="{Binding SelectedOrder.type, Mode=TwoWay}" FontSize="Small"/>
-            
-            <Label Text="Quantity" FontSize="Default"/>
-            <Entry Text="{Binding SelectedOrder.quantity, Mode=TwoWay}" FontSize="Small"/>
-            
-            <Label Text="From" FontSize="Default"/>
-            <Entry Text="{Binding SelectedOrder.from, Mode=TwoWay}" FontSize="Small"/>
-            
-            <Label Text="Status" FontSize="Default"/>
-            <Entry Text="{Binding SelectedOrder.status, Mode=TwoWay}" FontSize="Small"/>
-            
-            <Button Text="Update Order" Command="{Binding SubmitCommand}" HorizontalOptions="Center"/>
-        </StackLayout>
+                <Label Text="ID" FontSize="Small"/>
+                <Entry Text="{Binding SelectedOrder.id, Mode=TwoWay}" FontSize="Small"/>
+
+                <Label Text="Producer"/>
+                <Entry Text="{Binding SelectedOrder.producer, Mode=TwoWay}" FontSize="Small"/>
+
+                <Label Text="Farm" FontSize="Small"/>
+                <Entry Text="{Binding SelectedOrder.farm, Mode=TwoWay}" FontSize="Small"/>
+
+                <Label Text="Elevation" FontSize="Small"/>
+                <Entry Text="{Binding SelectedOrder.elevation, Mode=TwoWay}" FontSize="Small"/>
+
+                <Label Text="Variety" FontSize="Small"/>
+                <Entry Text="{Binding SelectedOrder.variety, Mode=TwoWay}" FontSize="Small"/>
+
+                <Label Text="Process" FontSize="Small"/>
+                <Entry Text="{Binding SelectedOrder.process, Mode=TwoWay}" FontSize="Small"/>
+
+                <Label Text="Quantity" FontSize="Default"/>
+                <Entry Text="{Binding SelectedOrder.quantity, Mode=TwoWay}" FontSize="Small"/>
+
+                <Label Text="QC" FontSize="Small"/>
+                <Entry Text="{Binding SelectedOrder.qc, Mode=TwoWay}" FontSize="Small"/>
+
+                <Label Text="Tasting Notes" FontSize="Default"/>
+                <Entry Text="{Binding SelectedOrder.tastingNotes, Mode=TwoWay}" FontSize="Small"/>
+
+                <Label Text="Status" FontSize="Default"/>
+                <Entry Text="{Binding SelectedOrder.status, Mode=TwoWay}" FontSize="Small"/>
+
+                <Button Text="Update" Command="{Binding SubmitCommand}" HorizontalOptions="Center"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

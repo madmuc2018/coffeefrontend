@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:coffeefrontend;assembly=coffeefrontend"
+    x:Class="coffeefrontend.GetHistoryPage">
+    <ContentPage.Content>
+        <StackLayout Padding="20,20">
+            <Label Text="Coffee history" FontSize="Large" Font="Bold" HorizontalOptions="CenterAndExpand"/>
+            <ListView ItemsSource="{Binding OrderHistory}" RowHeight="250">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout VerticalOptions="CenterAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="ID: " Font="Bold"/>
+                                    <Label Text="{Binding id}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Producer: " Font="Bold"/>
+                                    <Label Text="{Binding producer}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Farm: " Font="Bold"/>
+                                    <Label Text="{Binding farm}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Elevation: " Font="Bold"/>
+                                    <Label Text="{Binding elevation}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Variety: " Font="Bold"/>
+                                    <Label Text="{Binding variety}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Process: " Font="Bold"/>
+                                    <Label Text="{Binding process}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Quantity: " Font="Bold"/>
+                                    <Label Text="{Binding quantity}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="QC: " Font="Bold"/>
+                                    <Label Text="{Binding qc}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Tasting Notes: " Font="Bold"/>
+                                    <Label Text="{Binding tastingNotes}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Status: " Font="Bold"/>
+                                    <Label Text="{Binding status}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

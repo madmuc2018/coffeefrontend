@@ -10,22 +10,39 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <StackLayout Padding="20,20">
-            <Label Text="Include Coffee" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
+        <ScrollView>
+            <StackLayout Padding="20,20">
+                <Label Text="Include Coffee" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
 
-            <Label Text="ID"/>
-            <Entry Text="{Binding NewOder.id, Mode=TwoWay}"/>
+                <Label Text="ID"/>
+                <Entry Text="{Binding NewOder.id, Mode=TwoWay}"/>
 
-            <Label Text="Type"/>
-            <Entry Text="{Binding NewOder.type, Mode=TwoWay}"/>
+                <Label Text="Producer"/>
+                <Entry Text="{Binding NewOder.producer, Mode=TwoWay}"/>
 
-            <Label Text="Quantity"/>
-            <Entry Text="{Binding NewOder.quantity, Mode=TwoWay}"/>
+                <Label Text="Farm"/>
+                <Entry Text="{Binding NewOder.farm, Mode=TwoWay}"/>
 
-            <Label Text="From"/>
-            <Entry Text="{Binding NewOder.from, Mode=TwoWay}"/>
+                <Label Text="Elevation"/>
+                <Entry Text="{Binding NewOder.elevation, Mode=TwoWay}"/>
 
-            <Button Text="Place Order" HorizontalOptions="Center" Command="{Binding SubmitCommand}"/>
-        </StackLayout>
+                <Label Text="Variety"/>
+                <Entry Text="{Binding NewOder.variety, Mode=TwoWay}"/>
+
+                <Label Text="Process"/>
+                <Entry Text="{Binding NewOder.process, Mode=TwoWay}"/>
+
+                <Label Text="Quantity"/>
+                <Entry Text="{Binding NewOder.quantity, Mode=TwoWay}"/>
+
+                <Label Text="QC"/>
+                <Entry Text="{Binding NewOder.qc, Mode=TwoWay}"/>
+
+                <Label Text="Tasting Notes"/>
+                <Entry Text="{Binding NewOder.tastingNotes, Mode=TwoWay}"/>
+
+                <Button Text="Include" HorizontalOptions="Center" Command="{Binding SubmitCommand}"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

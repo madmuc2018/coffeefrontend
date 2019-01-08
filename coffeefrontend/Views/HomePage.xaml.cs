@@ -23,7 +23,7 @@ namespace coffeefrontend
                 return;
             }
             
-            BindingContext = new HomePageViewModel(orders, new Command(NavigateToUpdateOrderPage), new Command(NavigateToGrantAccessPage), new Command(GenerateQRCode));
+            BindingContext = new HomePageViewModel(orders, new Command(NavigateToUpdateOrderPage), new Command(NavigateToGrantAccessPage), new Command(GenerateQRCode), new Command(NavigateToGetHistoryPage));
         }
 
         private async void NavigateToUpdateOrderPage(object selectedOject)
@@ -42,6 +42,14 @@ namespace coffeefrontend
         {
             var selectedOrderResp = selectedOject as OrderResp;
             await Navigation.PushAsync(new OrderQRCodePage(selectedOrderResp.data));
+        }
+
+        private async void NavigateToGetHistoryPage(object selectedOject)
+        {
+            var selectedOrderResp = selectedOject as OrderResp;
+            var viewModel = new GetHistoryPageViewModel();
+            await viewModel.init(selectedOrderResp.guid);
+            await Navigation.PushAsync(new GetHistoryPage(viewModel));
         }
     }
 }

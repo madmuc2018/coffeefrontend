@@ -5,7 +5,7 @@
              x:Class="coffeefrontend.OrderQRCodePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding OrderID, StringFormat='QR Code for Order {0:N}'}" 
+            <Label Text="{Binding OrderID, StringFormat='QR Code for coffee {0:N}'}" 
                    FontSize="Large"
                    Font="Bold"
                    HorizontalOptions="CenterAndExpand"/>
