@@ -32,12 +32,16 @@ namespace coffeefrontend
 
             LoginCommand = new Command(async () =>
             {
+                Application.Current.Properties["coffee_token"] = "token";
+                await Application.Current.SavePropertiesAsync();
+                Application.Current.MainPage = new RootPage();
+                /*
                 using (UserDialogs.Instance.Loading("Login Now...", null, null, true, MaskType.Black))
                 {
 
-                    Application.Current.MainPage = new RootPage(); //just for teset
+                     //just for teset
 
-                    /*
+                    
                     (string error, string token) = await App.Manager.LoginTask(credentials.username, credentials.password);
                     if (error != null)
                         await Application.Current.MainPage.DisplayAlert("Alert", "Cannot login", "Close");
@@ -48,8 +52,8 @@ namespace coffeefrontend
                         await Application.Current.SavePropertiesAsync();
                         Application.Current.MainPage = new RootPage();
                     }
-                    */
-                }
+                   
+                } */
             });
 
         }
