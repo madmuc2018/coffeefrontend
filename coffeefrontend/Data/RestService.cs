@@ -13,7 +13,7 @@ namespace coffeefrontend
     {
         HttpClient client;
 
-        static string url = "  http://ddb13c67.ngrok.io/data";
+        static string url = "https://cd43a0b1.ngrok.io/v1";
 
         public RestService()
         {
@@ -51,42 +51,42 @@ namespace coffeefrontend
 
         public async Task<(string, string)> Register(string u, string p, string r)
         {
-            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>("/register", HttpMethod.Post, null, new RegisterBody { username = u, password = p, role = r });
+            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>("/user/register", HttpMethod.Post, null, new RegisterBody { username = u, password = p, role = r });
             return (error, error ?? resp.message);
         }
 
         public async Task<(string, string)> Login(string u, string p)
         {
-            (string error, LoginResponse resp) = await doSendRequest<LoginResponse>("/login", HttpMethod.Post, null, new LoginBody { username = u, password = p });
+            (string error, LoginResponse resp) = await doSendRequest<LoginResponse>("/user/login", HttpMethod.Post, null, new LoginBody { username = u, password = p });
             return (error, error ?? resp.token);
         }
 
         public async Task<(string, List<OrderResp>)> GetOrders(string token)
         {
-            return await doSendRequest<List<OrderResp>>("/", HttpMethod.Get, token);
+            return await doSendRequest<List<OrderResp>>("/fs", HttpMethod.Get, token);
         }
 
         public async Task<(string, string)> AddOrder(string token, Order order)
         {
-            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>("/", HttpMethod.Post, token, order);
+            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>("/fs", HttpMethod.Post, token, order);
             return (error, error ?? resp.message);
         }
 
         public async Task<(string, string)> UpdateOrder(string token, string guid, Order order)
         {
-            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>($"/{guid}", HttpMethod.Put, token, order);
+            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>($"/fs/{guid}", HttpMethod.Put, token, order);
             return (error, error ?? resp.message);
         }
 
         public async Task<(string, string)> GrantAccess(string token, string guid, List<string> gus)
         {
-            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>($"/{guid}/grant", HttpMethod.Put, token, new GrantAccessBody { grantedUsers = gus });
+            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>($"/fs/{guid}/grant", HttpMethod.Put, token, new GrantAccessBody { grantedUsers = gus });
             return (error, error ?? resp.message);
         }
 
         public async Task<(string, List<Order>)> GetHistory(string token, string guid)
         {
-            return await doSendRequest<List<Order>>($"/{guid}/trace", HttpMethod.Get, token);
+            return await doSendRequest<List<Order>>($"/fs/{guid}/trace", HttpMethod.Get, token);
         }
     }
 
