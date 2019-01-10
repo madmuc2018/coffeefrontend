@@ -13,14 +13,14 @@ namespace coffeefrontend
         public string qc { get; set; }
         public string tastingNotes { get; set; }
         public string status { get; set; }
-        public string changedBy { get;}
-        public string changedAt { get; }
+        public string lastChangedBy { get; set; }
+        public string lastChangedAt { get; set; }
 
 
         public Order()
         { }
 
-        public Order(string id, string producer, string farm, string elevation, string variety, string process, string quantity, string qc, string tastingNotes, string status)
+        public Order(string id, string producer, string farm, string elevation, string variety, string process, string quantity, string qc, string tastingNotes, string status, string lastChangedBy, string lastChangedAt)
         {
             this.id = id;
             this.producer = producer;
@@ -32,6 +32,8 @@ namespace coffeefrontend
             this.qc= qc;
             this.tastingNotes = tastingNotes;
             this.status = status;
+            this.lastChangedBy = lastChangedBy;
+            this.lastChangedAt = lastChangedAt;
         }
 
         public bool Equals(Order other)
