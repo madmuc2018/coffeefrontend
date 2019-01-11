@@ -11,13 +11,16 @@ namespace coffeefrontend
         private static Grid qrcodeAssistOverlay = qrcodePlaceAssist();
         public QRCodeScanPage() : base(customOverlay: qrcodeAssistOverlay)
         {
+            Console.WriteLine("create qrcode assist");
             doQRCodeScanning();
         }
 
         public void doQRCodeScanning()
         {
+            QRCodeScanPage tempThis = this;
             this.OnScanResult += (result) => {
                 this.IsScanning = false;
+
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
