@@ -17,10 +17,8 @@ namespace coffeefrontend
 
         public void doQRCodeScanning()
         {
-            QRCodeScanPage tempThis = this;
             this.OnScanResult += (result) => {
                 this.IsScanning = false;
-
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -28,7 +26,6 @@ namespace coffeefrontend
                     DisplayAlert("Scanned Barcode", result.Text, "OK");
                 });
             };
-            //await Navigation.PushAsync(scanPage);
         }
 
         private static Grid qrcodePlaceAssist()
