@@ -11,5 +11,6 @@ namespace coffeefrontend
         Task<(string, string)> AddOrder(string token, Order order);
         Task<(string, string)> UpdateOrder(string token, string guid, Order order);
         Task<(string, string)> GrantAccess(string token, string guid, List<string> grantedUsers);
+        Task<(string, List<Order>)> GetHistory(string token, string guid);
     }
 }

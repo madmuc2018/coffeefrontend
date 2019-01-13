@@ -42,5 +42,10 @@ namespace coffeefrontend
         {
             return restService.GrantAccess(token, guid, grantedUsers);
         }
+
+        public Task<(string, List<Order>)> GetHistoryTask(string token, string guid)
+        {
+            return restService.GetHistory(token, guid);
+        }
     }
 }
