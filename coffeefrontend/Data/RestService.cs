@@ -88,6 +88,11 @@ namespace coffeefrontend
         {
             return await doSendRequest<List<Order>>($"/fs/{guid}/trace", HttpMethod.Get, token);
         }
+
+        public async Task<(string, OrderResp)> getLatestOrder(string token, string guid)
+        {
+            return await doSendRequest<OrderResp>($"/fs/{guid}/latest", HttpMethod.Get, token);
+        }
     }
 
     class LoginResponse

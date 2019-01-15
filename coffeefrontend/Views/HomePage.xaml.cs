@@ -15,15 +15,18 @@ namespace coffeefrontend
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            (string error, List<OrderResp> orders) = (await App.Manager.GetOrdersTask(Application.Current.Properties["coffee_token"].ToString()));
-           
-            if (error != null)
-            { 
-                await DisplayAlert("Alert", error, "Close");
-                return;
+            using (UserDialogs.Instance.Loading("Getting Order...", null, null, true, MaskType.Black))
+            {
+                (string error, List<OrderResp> orders) = (await App.Manager.GetOrdersTask(Application.Current.Properties["coffee_token"].ToString()));
+
+                if (error != null)
+                {
+                    await DisplayAlert("Alert", error, "Close");
+                    return;
+                }
+
+                BindingContext = new HomePageViewModel(orders, new Command(NavigateToUpdateOrderPage), new Command(NavigateToGrantAccessPage), new Command(GenerateQRCode), new Command(NavigateToGetHistoryPage));
             }
-            
-            BindingContext = new HomePageViewModel(orders, new Command(NavigateToUpdateOrderPage), new Command(NavigateToGrantAccessPage), new Command(GenerateQRCode));
         }
 
         private async void NavigateToUpdateOrderPage(object selectedOject)
@@ -44,17 +47,17 @@ namespace coffeefrontend
             await Navigation.PushAsync(new OrderQRCodePage(selectedOrderResp.data));
         }
 
+        public async void asyncOpenQRCodeScanner(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new QRCodeScanPage());
+        }
+        
         private async void NavigateToGetHistoryPage(object selectedOject)
         {
             var selectedOrderResp = selectedOject as OrderResp;
             var viewModel = new GetHistoryPageViewModel();
             await viewModel.init(selectedOrderResp.guid);
             await Navigation.PushAsync(new GetHistoryPage(viewModel));
-        }
-
-	public async void asyncOpenQRCodeScanner(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new QRCodeScanPage());
         }
     }
 }

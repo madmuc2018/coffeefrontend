@@ -7,10 +7,10 @@ namespace coffeefrontend
     {
         OrderQRCodePageViewModel viewModel;
 
-        public OrderQRCodePage(Order order)
+        public OrderQRCodePage(OrderResp orderResp)
         {
             InitializeComponent();
-            BindingContext = this.viewModel = new OrderQRCodePageViewModel(order);
+            BindingContext = this.viewModel = new OrderQRCodePageViewModel(orderResp);
         }
 
         public void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
