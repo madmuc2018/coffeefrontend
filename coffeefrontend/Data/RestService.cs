@@ -13,7 +13,7 @@ namespace coffeefrontend
     {
         HttpClient client;
 
-        static string url = "https://e52825f8.ngrok.io/data";
+        static string url = "http://fbae86f2.ngrok.io/v1";
 
         public RestService()
         {
@@ -87,6 +87,11 @@ namespace coffeefrontend
         public async Task<(string, List<Order>)> GetHistory(string token, string guid)
         {
             return await doSendRequest<List<Order>>($"/fs/{guid}/trace", HttpMethod.Get, token);
+        }
+
+        public async Task<(string, OrderResp)> getLatestOrder(string token, string guid)
+        {
+            return await doSendRequest<OrderResp>($"/fs/{guid}/latest", HttpMethod.Get, token);
         }
     }
 

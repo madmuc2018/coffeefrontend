@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
@@ -11,7 +12,6 @@ namespace coffeefrontend
         private static Grid qrcodeAssistOverlay = qrcodePlaceAssist();
         public QRCodeScanPage() : base(customOverlay: qrcodeAssistOverlay)
         {
-            Console.WriteLine("create qrcode assist");
             doQRCodeScanning();
         }
 
@@ -20,10 +20,24 @@ namespace coffeefrontend
             this.OnScanResult += (result) => {
                 this.IsScanning = false;
 
-                Device.BeginInvokeOnMainThread(() =>
+                Console.WriteLine(result.Text);
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    Navigation.PopAsync();
-                    DisplayAlert("Scanned Barcode", result.Text, "OK");
+                    await Navigation.PopAsync();
+
+                    using (UserDialogs.Instance.Loading("Processing Scan...", null, null, true, MaskType.Black))
+                    {
+                        (string error, OrderResp orderResp) = await App.Manager.GetLastestOrderTask(Application.Current.Properties["coffee_token"].ToString(), result.Text);
+                        if (error != null)
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Alert", "Cannot get order", "Close");
+                        }
+                        else
+                        {
+                            await Navigation.PushAsync(new UpdateOrderPage(new UpdatePageViewModel(orderResp.data, orderResp.guid)));
+                        }
+
+                    }
                 });
             };
         }

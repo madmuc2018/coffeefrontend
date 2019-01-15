@@ -32,10 +32,7 @@ namespace coffeefrontend
 
             LoginCommand = new Command(async () =>
             {
-                Application.Current.Properties["coffee_token"] = "token";
-                await Application.Current.SavePropertiesAsync();
-                Application.Current.MainPage = new RootPage();
-                /*
+
                 using (UserDialogs.Instance.Loading("Login Now...", null, null, true, MaskType.Black))
                 {
 
@@ -53,7 +50,7 @@ namespace coffeefrontend
                         Application.Current.MainPage = new RootPage();
                     }
                    
-                } */
+                } 
             });
 
         }
