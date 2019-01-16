@@ -47,5 +47,10 @@ namespace coffeefrontend
         {
             return restService.GetHistory(token, guid);
         }
+
+        public Task<(string, OrderResp)> GetLastestOrderTask(string token, string guid)
+        {
+            return restService.getLatestOrder(token, guid);
+        }
     }
 }

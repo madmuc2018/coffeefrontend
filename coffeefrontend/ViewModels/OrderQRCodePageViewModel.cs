@@ -11,10 +11,9 @@ namespace coffeefrontend
         private SKBitmap skbmp;
         public string OrderID { get; }
 
-        public OrderQRCodePageViewModel(Order order)
+        public OrderQRCodePageViewModel(OrderResp orderResp)
         {
-            OrderID = order.id;
-            BitMatrix bmqr = new QRCodeWriter().encode(JsonConvert.SerializeObject(order), ZXing.BarcodeFormat.QR_CODE, 750, 750);
+            BitMatrix bmqr = new QRCodeWriter().encode(orderResp.guid, ZXing.BarcodeFormat.QR_CODE, 750, 750);
             skbmp = new SKBitmap(bmqr.Width, bmqr.Height);
             for (int i = 0; i < bmqr.Width; i++)
             {
