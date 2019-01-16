@@ -23,10 +23,9 @@ namespace coffeefrontend
                 Console.WriteLine(result.Text);
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await Navigation.PopAsync();
-
                     using (UserDialogs.Instance.Loading("Processing Scan...", null, null, true, MaskType.Black))
                     {
+                        //await Navigation.PopAsync();
                         (string error, OrderResp orderResp) = await App.Manager.GetLastestOrderTask(Application.Current.Properties["coffee_token"].ToString(), result.Text);
                         if (error != null)
                         {

@@ -16,7 +16,7 @@
             </StackLayout>
             <StackLayout Grid.Row="1" Grid.Column="0" Padding="10,10,10,10">
                 <Entry Placeholder="Email" Text="{Binding Credentials.username, Mode=TwoWay}" />
-                <Entry Placeholder="Password" Text="{Binding Credentials.password, Mode=TwoWay}" />
+                <Entry Placeholder="Password" IsPassword="True" Text="{Binding Credentials.password, Mode=TwoWay}" />
                 <Entry Placeholder="Role" Text="{Binding Credentials.role, Mode=TwoWay}" />
             </StackLayout>
             <StackLayout Grid.Row="3" Grid.Column="0">
