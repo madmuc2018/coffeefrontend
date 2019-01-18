@@ -1,5 +1,4 @@
-﻿using Acr.UserDialogs;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace coffeefrontend
@@ -16,14 +15,11 @@ namespace coffeefrontend
             this.guid = guid;
             SubmitCommand = new Command(async () =>
             {
-                using (UserDialogs.Instance.Loading("Updating Order...", null, null, true, MaskType.Black))
-                {
-                    (string error, string result) = await App.Manager.UpdateOrderTask(Application.Current.Properties["coffee_token"].ToString(), guid, selectedOrder);
-                    if (error != null)
-                        await Application.Current.MainPage.DisplayAlert("Alert", "Cannot update order", "Close");
-                    else
-                        await Application.Current.MainPage.DisplayAlert("Result", "Order updated", "Close");
-                }
+                (string error, string result) = await App.Manager.UpdateOrderTask(Application.Current.Properties["coffee_token"].ToString(), guid, selectedOrder);
+                if (error != null)
+                    await Application.Current.MainPage.DisplayAlert("Alert", "Cannot update order", "Close");
+                else
+                    await Application.Current.MainPage.DisplayAlert("Result", "Order updated", "Close");
             });
         }
 
