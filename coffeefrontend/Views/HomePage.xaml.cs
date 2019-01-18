@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace coffeefrontend
@@ -15,18 +14,14 @@ namespace coffeefrontend
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            using (UserDialogs.Instance.Loading("Getting Order...", null, null, true, MaskType.Black))
+            (string error, List<OrderResp> orders) = await App.Manager.GetOrdersTask(Application.Current.Properties["coffee_token"].ToString());
+            if (error != null)
             {
-                (string error, List<OrderResp> orders) = (await App.Manager.GetOrdersTask(Application.Current.Properties["coffee_token"].ToString()));
-
-                if (error != null)
-                {
-                    await DisplayAlert("Alert", error, "Close");
-                    return;
-                }
-
-                BindingContext = new HomePageViewModel(orders, new Command(NavigateToUpdateOrderPage), new Command(NavigateToGrantAccessPage), new Command(GenerateQRCode), new Command(NavigateToGetHistoryPage));
+                await DisplayAlert("Alert", error, "Close");
+                return;
             }
+
+            BindingContext = new HomePageViewModel(orders, new Command(NavigateToUpdateOrderPage), new Command(NavigateToGrantAccessPage), new Command(GenerateQRCode), new Command(NavigateToGetHistoryPage));
         }
 
         private async void NavigateToUpdateOrderPage(object selectedOject)
@@ -44,14 +39,14 @@ namespace coffeefrontend
         private async void GenerateQRCode(object selectedOject)
         {
             var selectedOrderResp = selectedOject as OrderResp;
-            await Navigation.PushAsync(new OrderQRCodePage(selectedOrderResp.data));
+            await Navigation.PushAsync(new OrderQRCodePage(selectedOrderResp));
         }
 
-        public async void asyncOpenQRCodeScanner(object sender, EventArgs e)
+        private async void asyncOpenQRCodeScanner(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new QRCodeScanPage());
         }
-        
+
         private async void NavigateToGetHistoryPage(object selectedOject)
         {
             var selectedOrderResp = selectedOject as OrderResp;

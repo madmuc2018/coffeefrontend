@@ -1,5 +1,4 @@
-﻿using Acr.UserDialogs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
@@ -17,25 +16,22 @@ namespace coffeefrontend
 
         public void doQRCodeScanning()
         {
-            this.OnScanResult += (result) => {
+            this.OnScanResult += (result) =>
+            {
                 this.IsScanning = false;
 
                 Console.WriteLine(result.Text);
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    using (UserDialogs.Instance.Loading("Processing Scan...", null, null, true, MaskType.Black))
+                    //await Navigation.PopAsync();
+                    (string error, OrderResp orderResp) = await App.Manager.GetLastestOrderTask(Application.Current.Properties["coffee_token"].ToString(), result.Text);
+                    if (error != null)
                     {
-                        //await Navigation.PopAsync();
-                        (string error, OrderResp orderResp) = await App.Manager.GetLastestOrderTask(Application.Current.Properties["coffee_token"].ToString(), result.Text);
-                        if (error != null)
-                        {
-                            await Application.Current.MainPage.DisplayAlert("Alert", "Cannot get order", "Close");
-                        }
-                        else
-                        {
-                            await Navigation.PushAsync(new UpdateOrderPage(new UpdatePageViewModel(orderResp.data, orderResp.guid)));
-                        }
-
+                        await Application.Current.MainPage.DisplayAlert("Alert", "Cannot get order", "Close");
+                    }
+                    else
+                    {
+                        await Navigation.PushAsync(new UpdateOrderPage(new UpdatePageViewModel(orderResp.data, orderResp.guid)));
                     }
                 });
             };
@@ -53,11 +49,11 @@ namespace coffeefrontend
             tempGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
 
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
-                for(int j = 0; j < 3; j++)
+                for (int j = 0; j < 3; j++)
                 {
-                    if(i == 1 && j == 1)
+                    if (i == 1 && j == 1)
                     {
                         continue;
                     }

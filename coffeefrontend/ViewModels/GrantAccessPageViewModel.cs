@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
-using Acr.UserDialogs;
 
 namespace coffeefrontend
 {
@@ -20,14 +19,11 @@ namespace coffeefrontend
 
             SubmitCommand = new Command(async () =>
             {
-                using (UserDialogs.Instance.Loading("Granting Access...", null, null, true, MaskType.Black))
-                {
-                    (string error, string result) = await App.Manager.GrantAccessTask(Application.Current.Properties["coffee_token"].ToString(), guid, new List<string>(new string[] { username }));
-                    if (error != null)
-                        await Application.Current.MainPage.DisplayAlert("Alert", "Cannot grant access", "Close");
-                    else
-                        await Application.Current.MainPage.DisplayAlert("Result", $"Access granted to {username}", "Close");
-                }
+                (string error, string result) = await App.Manager.GrantAccessTask(Application.Current.Properties["coffee_token"].ToString(), guid, new List<string>(new string[] { username }));
+                if (error != null)
+                    await Application.Current.MainPage.DisplayAlert("Alert", "Cannot grant access", "Close");
+                else
+                    await Application.Current.MainPage.DisplayAlert("Result", $"Access granted to {username}", "Close");
             });
 
         }
