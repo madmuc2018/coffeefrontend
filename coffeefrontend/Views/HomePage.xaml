@@ -5,7 +5,7 @@
     x:Class="coffeefrontend.HomePage"
     x:Name="HomePageVM">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="@drawable/scan" Clicked="asyncOpenQRCodeScanner">
+        <ToolbarItem Icon="@drawable/scan" Command="{Binding ToQRCodeScanner}">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 

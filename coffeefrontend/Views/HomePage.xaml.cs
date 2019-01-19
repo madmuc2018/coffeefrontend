@@ -21,7 +21,7 @@ namespace coffeefrontend
                 return;
             }
 
-            BindingContext = new HomePageViewModel(orders, new Command(NavigateToUpdateOrderPage), new Command(NavigateToGrantAccessPage), new Command(GenerateQRCode), new Command(NavigateToGetHistoryPage));
+            BindingContext = new HomePageViewModel(orders, new Command(QRCodeScanner), new Command(NavigateToUpdateOrderPage), new Command(NavigateToGrantAccessPage), new Command(GenerateQRCode), new Command(NavigateToGetHistoryPage));
         }
 
         private async void NavigateToUpdateOrderPage(object selectedOject)
@@ -42,7 +42,7 @@ namespace coffeefrontend
             await Navigation.PushAsync(new OrderQRCodePage(selectedOrderResp));
         }
 
-        private async void asyncOpenQRCodeScanner(object sender, EventArgs e)
+        private async void QRCodeScanner(object selectedOject)
         {
             await Navigation.PushAsync(new QRCodeScanPage());
         }
