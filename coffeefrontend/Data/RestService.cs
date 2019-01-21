@@ -89,6 +89,12 @@ namespace coffeefrontend
             return (error, error ?? resp.message);
         }
 
+        public async Task<(string, string)> RevokeAccess(string token, string guid, string rus)
+        {
+            (string error, IgnoreResponseContent resp) = await doSendRequest<ErrorResp, IgnoreResponseContent>($"/fs/{guid}/revoke", "Revoking access", HttpMethod.Put, token, new RevokeAccessBody { userToBeRevoked = rus });
+            return (error, error ?? resp.message);
+        }
+
         public async Task<(string, List<Order>)> GetHistory(string token, string guid)
         {
             return await doSendRequest<ErrorResp, List<Order>>($"/fs/{guid}/trace", "Retrieving history", HttpMethod.Get, token);
@@ -97,6 +103,11 @@ namespace coffeefrontend
         public async Task<(string, OrderResp)> getLatestOrder(string token, string guid)
         {
             return await doSendRequest<ErrorResp, OrderResp>($"/fs/{guid}/latest", "Retrieving latest version of order", HttpMethod.Get, token);
+        }
+
+        public async Task<(string, AccessResp)> GetAccessInfo(string token, string guid)
+        {
+            return await doSendRequest<ErrorResp, AccessResp>($"/fs/{guid}/access", "Retrieving access info", HttpMethod.Get, token);
         }
     }
 
@@ -113,5 +124,10 @@ namespace coffeefrontend
     class GrantAccessBody
     {
         public List<string> grantedUsers { get; set; }
+    }
+
+    class RevokeAccessBody
+    {
+        public string userToBeRevoked { get; set; }
     }
 }

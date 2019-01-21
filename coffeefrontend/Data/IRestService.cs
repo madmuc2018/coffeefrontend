@@ -13,5 +13,7 @@ namespace coffeefrontend
         Task<(string, string)> GrantAccess(string token, string guid, List<string> grantedUsers);
         Task<(string, List<Order>)> GetHistory(string token, string guid);
         Task<(string, OrderResp)> getLatestOrder(string token, string guid);
+        Task<(string, string)> RevokeAccess(string token, string guid, string userToBeRevoked);
+        Task<(string, AccessResp)> GetAccessInfo(string token, string guid);
     }
 }

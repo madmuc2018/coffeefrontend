@@ -25,10 +25,10 @@
                                     Command="{Binding Path=BindingContext.ToUpdate,Source={x:Reference HomePageVM}}" 
                                     CommandParameter="{Binding .}" 
                                     Text="Update" />
-                                 <MenuItem 
+                                <MenuItem 
                                     Command="{Binding Path=BindingContext.ToGrantAccess,Source={x:Reference HomePageVM}}" 
                                     CommandParameter="{Binding .}" 
-                                    Text="Grant Access" />
+                                    Text="Access Control"/>
                                 <MenuItem 
                                     Command="{Binding Path=BindingContext.GetHistory,Source={x:Reference HomePageVM}}" 
                                     CommandParameter="{Binding .}" 

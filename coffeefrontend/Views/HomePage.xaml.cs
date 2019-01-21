@@ -33,7 +33,9 @@ namespace coffeefrontend
         private async void NavigateToGrantAccessPage(object selectedOject)
         {
             var selectedOrderResp = selectedOject as OrderResp;
-            await Navigation.PushAsync(new GrantAccessPage(new GrantAccessPageViewModel(selectedOrderResp.data.id, selectedOrderResp.guid)));
+            var viewModel = new GrantAccessPageViewModel(selectedOrderResp.data.id, selectedOrderResp.guid);
+            await viewModel.init(selectedOrderResp.guid);
+            await Navigation.PushAsync(new GrantAccessPage(viewModel));
         }
 
         private async void GenerateQRCode(object selectedOject)

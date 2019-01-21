@@ -43,6 +43,11 @@ namespace coffeefrontend
             return restService.GrantAccess(token, guid, grantedUsers);
         }
 
+        public Task<(string, string)> RevokeAccessTask(string token, string guid, string userToBeRevoked)
+        {
+            return restService.RevokeAccess(token, guid, userToBeRevoked);
+        }
+
         public Task<(string, List<Order>)> GetHistoryTask(string token, string guid)
         {
             return restService.GetHistory(token, guid);
@@ -51,6 +56,11 @@ namespace coffeefrontend
         public Task<(string, OrderResp)> GetLastestOrderTask(string token, string guid)
         {
             return restService.getLatestOrder(token, guid);
+        }
+
+        public Task<(string, AccessResp)> GetAccessInfoTask(string token, string guid)
+        {
+            return restService.GetAccessInfo(token, guid);
         }
     }
 }
