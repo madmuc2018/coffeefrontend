@@ -1,28 +1,44 @@
-<ContentPage 
+<TabbedPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:coffeefrontend;assembly=coffeefrontend"
     x:Class="coffeefrontend.LoginPage">
     
-    <ContentPage.BindingContext>
+    <TabbedPage.BindingContext>
         <local:LoginPageViewModel />
-    </ContentPage.BindingContext>
+    </TabbedPage.BindingContext>
     
-    <ContentPage.Content>
-        <Grid>
-            <StackLayout Grid.Row="0" Grid.Column="0">
-                <Image/>
-                <Label Text="Coffee Manager" FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-            </StackLayout>
-            <StackLayout Grid.Row="1" Grid.Column="0" Padding="10,10,10,10">
-                <Entry Placeholder="Email" Text="{Binding Credentials.username, Mode=TwoWay}" />
-                <Entry Placeholder="Password" IsPassword="True" Text="{Binding Credentials.password, Mode=TwoWay}" />
-                <Entry Placeholder="Role" Text="{Binding Credentials.role, Mode=TwoWay}" />
-            </StackLayout>
-            <StackLayout Grid.Row="3" Grid.Column="0">
-                <Button Text="Register" Command="{Binding RegisterCommand}" HorizontalOptions="Center"/>
-                <Button Text="Login" Command="{Binding LoginCommand}" HorizontalOptions="Center"/>
-            </StackLayout>
-        </Grid>
-    </ContentPage.Content>
-</ContentPage>
+    <TabbedPage.Children>
+        <ContentPage Title="Login">
+            <Grid>
+                <StackLayout Grid.Row="0" Grid.Column="0">
+                    <Image/>
+                    <Label Text="Coffee Manager" FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1" Grid.Column="0" Padding="10,10,10,10">
+                    <Entry Placeholder="Email" Text="{Binding Credentials.username, Mode=TwoWay}" />
+                    <Entry Placeholder="Password" IsPassword="True" Text="{Binding Credentials.password, Mode=TwoWay}" />
+                </StackLayout>
+                <StackLayout Grid.Row="3" Grid.Column="0">
+                    <Button Text="Submit" Command="{Binding LoginCommand}" HorizontalOptions="Center"/>
+                </StackLayout>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Register" >
+            <Grid>
+                <StackLayout Grid.Row="0" Grid.Column="0">
+                    <Image/>
+                    <Label Text="Coffee Manager" FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1" Grid.Column="0" Padding="10,10,10,10">
+                    <Entry Placeholder="Email" Text="{Binding Credentials.username, Mode=TwoWay}" />
+                    <Entry Placeholder="Password" IsPassword="True" Text="{Binding Credentials.password, Mode=TwoWay}" />
+                    <Entry Placeholder="Role" Text="{Binding Credentials.role, Mode=TwoWay}" />
+                </StackLayout>
+                <StackLayout Grid.Row="3" Grid.Column="0">
+                    <Button Text="Submit" Command="{Binding RegisterCommand}" HorizontalOptions="Center"/>
+                </StackLayout>
+            </Grid>
+        </ContentPage>
+    </TabbedPage.Children>
+</TabbedPage>
