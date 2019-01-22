@@ -21,7 +21,7 @@ namespace coffeefrontend
             {
                 (string error, string result) = await App.Manager.GrantAccessTask(Application.Current.Properties["coffee_token"].ToString(), guid, new List<string>(new string[] { username }));
                 if (error != null)
-                    await Application.Current.MainPage.DisplayAlert("Alert", "Cannot grant access", "Close");
+                    await Application.Current.MainPage.DisplayAlert("Alert", error, "Close");
                 else
                     await Application.Current.MainPage.DisplayAlert("Result", $"Access granted to {username}", "Close");
             });

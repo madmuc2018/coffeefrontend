@@ -14,7 +14,7 @@ namespace coffeefrontend
     {
         HttpClient client;
 
-        static string url = "https://24589660.ngrok.io/v1";
+        static string url = "https://13027d48.ngrok.io/v1";
 
         public RestService()
         {
@@ -22,7 +22,7 @@ namespace coffeefrontend
             client.MaxResponseContentBufferSize = 256000;
         }
 
-        private async Task<(string, T)> doSendRequest<T>(string endpoint, string requestName, HttpMethod httpMethod, string token = null, object requestBody = null, [CallerMemberName] string caller = "Unknown method")
+        private async Task<(string, SuccessType)> doSendRequest<ErrorType, SuccessType>(string endpoint, string requestName, HttpMethod httpMethod, string token = null, object requestBody = null, [CallerMemberName] string caller = "Unknown method") where ErrorType : ToStringBase
         {
             var uri = new Uri($"{url}{endpoint}");
             HttpResponseMessage response = null;
@@ -36,66 +36,67 @@ namespace coffeefrontend
                     if (requestBody != null)
                         req.Content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
                     response = await client.SendAsync(req);
+                    string resultString = (await response.Content.ReadAsStringAsync()).ToString();
                     if (!response.IsSuccessStatusCode)
                     {
-                        Debug.WriteLine(@"             ERROR {0}", response);
-                        return ($"Cannot {caller}", default(T));
+                        string errorString = JsonConvert.DeserializeObject<ErrorType>(resultString).ToString().Trim();
+                        Debug.WriteLine(@"             ERROR {0} {1} {2}", response, resultString, errorString);
+                        return (errorString.Length > 0 ? errorString : $"Cannot {caller}", default(SuccessType));
                     }
-                    string resultString = (await response.Content.ReadAsStringAsync()).ToString();
-                    T result = JsonConvert.DeserializeObject<T>(typeof(T).Equals(typeof(IgnoreResponseContent)) ? $"{{\"message\": \"{caller} succeeded\"}}" : resultString);
+                    SuccessType result = JsonConvert.DeserializeObject<SuccessType>(typeof(SuccessType).Equals(typeof(IgnoreResponseContent)) ? $"{{\"message\": \"{caller} succeeded\"}}" : resultString);
                     return (null, result);
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(@"             ERROR {0}", ex.Message);
-                    return ($"Unexpected error from {caller}", default(T));
+                    return ($"Unexpected error from {caller}", default(SuccessType));
                 }
             }
         }
 
         public async Task<(string, string)> Register(string u, string p, string r)
         {
-            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>("/user/register", "Registering", HttpMethod.Post, null, new RegisterBody { username = u, password = p, role = r });
+            (string error, IgnoreResponseContent resp) = await doSendRequest<ErrorResp, IgnoreResponseContent>("/user/register", "Registering", HttpMethod.Post, null, new RegisterBody { username = u, password = p, role = r });
             return (error, error ?? resp.message);
         }
 
         public async Task<(string, string)> Login(string u, string p)
         {
-            (string error, LoginResponse resp) = await doSendRequest<LoginResponse>("/user/login", "Logging in", HttpMethod.Post, null, new LoginBody { username = u, password = p });
+            (string error, LoginResponse resp) = await doSendRequest<ErrorResp, LoginResponse>("/user/login", "Logging in", HttpMethod.Post, null, new LoginBody { username = u, password = p });
             return (error, error ?? resp.token);
         }
 
         public async Task<(string, List<OrderResp>)> GetOrders(string token)
         {
-            return await doSendRequest<List<OrderResp>>("/fs", "Retrieving orders", HttpMethod.Get, token);
+            return await doSendRequest<ErrorResp, List<OrderResp>>("/fs", "Retrieving orders", HttpMethod.Get, token);
         }
 
         public async Task<(string, string)> AddOrder(string token, Order order)
         {
-            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>("/fs", "Adding order", HttpMethod.Post, token, order);
+            (string error, IgnoreResponseContent resp) = await doSendRequest<ErrorResp, IgnoreResponseContent>("/fs", "Adding order", HttpMethod.Post, token, order);
             return (error, error ?? resp.message);
         }
 
         public async Task<(string, string)> UpdateOrder(string token, string guid, Order order)
         {
-            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>($"/fs/{guid}", "Updating order", HttpMethod.Put, token, order);
+            (string error, IgnoreResponseContent resp) = await doSendRequest<ErrorResp, IgnoreResponseContent>($"/fs/{guid}", "Updating order", HttpMethod.Put, token, order);
             return (error, error ?? resp.message);
         }
 
         public async Task<(string, string)> GrantAccess(string token, string guid, List<string> gus)
         {
-            (string error, IgnoreResponseContent resp) = await doSendRequest<IgnoreResponseContent>($"/fs/{guid}/grant", "Granting access", HttpMethod.Put, token, new GrantAccessBody { grantedUsers = gus });
+            (string error, IgnoreResponseContent resp) = await doSendRequest<ErrorResp, IgnoreResponseContent>($"/fs/{guid}/grant", "Granting access", HttpMethod.Put, token, new GrantAccessBody { grantedUsers = gus });
             return (error, error ?? resp.message);
         }
 
         public async Task<(string, List<Order>)> GetHistory(string token, string guid)
         {
-            return await doSendRequest<List<Order>>($"/fs/{guid}/trace", "Retrieving history", HttpMethod.Get, token);
+            return await doSendRequest<ErrorResp, List<Order>>($"/fs/{guid}/trace", "Retrieving history", HttpMethod.Get, token);
         }
 
         public async Task<(string, OrderResp)> getLatestOrder(string token, string guid)
         {
-            return await doSendRequest<OrderResp>($"/fs/{guid}/latest", "Retrieving latest version of order", HttpMethod.Get, token);
+            return await doSendRequest<ErrorResp, OrderResp>($"/fs/{guid}/latest", "Retrieving latest version of order", HttpMethod.Get, token);
         }
     }
 

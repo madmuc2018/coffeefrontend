@@ -19,7 +19,7 @@ namespace coffeefrontend
             {
                 (string error, string result) = await App.Manager.RegisterTask(credentials.username, credentials.password, credentials.role);
                 if (error != null)
-                    await Application.Current.MainPage.DisplayAlert("Alert", "Cannot register", "Close");
+                    await Application.Current.MainPage.DisplayAlert("Alert", error, "Close");
                 else
                     await Application.Current.MainPage.DisplayAlert("Result", "You can now login", "Close");
             });
@@ -31,7 +31,7 @@ namespace coffeefrontend
 
                 (string error, string token) = await App.Manager.LoginTask(credentials.username, credentials.password);
                 if (error != null)
-                    await Application.Current.MainPage.DisplayAlert("Alert", "Cannot login", "Close");
+                    await Application.Current.MainPage.DisplayAlert("Alert", error, "Close");
                 else
                 {
                     //Can use neither Xamarin Auth or Xamarin Essentials Secure storage here because requires Dev ID
