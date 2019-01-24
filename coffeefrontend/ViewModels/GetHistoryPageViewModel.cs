@@ -20,6 +20,10 @@ namespace coffeefrontend
             else
             {
                 this.OrderHistory = result;
+                foreach (var order in OrderHistory)
+                {
+                    order.lastChangedAtDatetime = Convert.ToDateTime(order.lastChangedAt).ToLocalTime();
+                }
             }
             return 99;
         }

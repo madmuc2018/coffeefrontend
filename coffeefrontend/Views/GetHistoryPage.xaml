@@ -54,7 +54,7 @@
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="Changed at: " Font="Bold"/>
-                                    <Label Text="{Binding lastChangedAt}" />
+                                    <Label Text="{Binding lastChangedAtDatetime}" />
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="Changed by: " Font="Bold"/>

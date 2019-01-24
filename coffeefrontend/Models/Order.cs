@@ -15,7 +15,7 @@ namespace coffeefrontend
         public string status { get; set; }
         public string lastChangedBy { get; set; }
         public string lastChangedAt { get; set; }
-
+        public DateTime lastChangedAtDatetime { get; set; }
 
         public Order()
         { }
@@ -29,7 +29,7 @@ namespace coffeefrontend
             this.variety = variety;
             this.process = process;
             this.quantity = quantity;
-            this.qc= qc;
+            this.qc = qc;
             this.tastingNotes = tastingNotes;
             this.status = status;
             this.lastChangedBy = lastChangedBy;
@@ -38,9 +38,9 @@ namespace coffeefrontend
 
         public bool Equals(Order other)
         {
-            return id == other.id 
-                && producer == other.producer 
-                && farm == other.farm 
+            return id == other.id
+                && producer == other.producer
+                && farm == other.farm
                 && elevation == other.elevation
                 && variety == other.variety
                 && process == other.process
