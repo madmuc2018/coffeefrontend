@@ -16,8 +16,8 @@
                     <Label Text="Coffee Manager" FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                 </StackLayout>
                 <StackLayout Grid.Row="1" Grid.Column="0" Padding="10,10,10,10">
-                    <Entry Placeholder="Email" Text="{Binding Credentials.username, Mode=TwoWay}" />
-                    <Entry Placeholder="Password" IsPassword="True" Text="{Binding Credentials.password, Mode=TwoWay}" />
+                    <Entry Placeholder="Email" Text="{Binding LoginCreds.username, Mode=TwoWay}" />
+                    <Entry Placeholder="Password" IsPassword="True" Text="{Binding LoginCreds.password, Mode=TwoWay}" />
                 </StackLayout>
                 <StackLayout Grid.Row="3" Grid.Column="0">
                     <Button Text="Submit" Command="{Binding LoginCommand}" HorizontalOptions="Center"/>
@@ -31,9 +31,9 @@
                     <Label Text="Coffee Manager" FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                 </StackLayout>
                 <StackLayout Grid.Row="1" Grid.Column="0" Padding="10,10,10,10">
-                    <Entry Placeholder="Email" Text="{Binding Credentials.username, Mode=TwoWay}" />
-                    <Entry Placeholder="Password" IsPassword="True" Text="{Binding Credentials.password, Mode=TwoWay}" />
-                    <Entry Placeholder="Role" Text="{Binding Credentials.role, Mode=TwoWay}" />
+                    <Entry Placeholder="Email" Text="{Binding RegisterCreds.username, Mode=TwoWay}" />
+                    <Entry Placeholder="Password" IsPassword="True" Text="{Binding RegisterCreds.password, Mode=TwoWay}" />
+                    <Entry Placeholder="Role" Text="{Binding RegisterCreds.role, Mode=TwoWay}" />
                 </StackLayout>
                 <StackLayout Grid.Row="3" Grid.Column="0">
                     <Button Text="Submit" Command="{Binding RegisterCommand}" HorizontalOptions="Center"/>

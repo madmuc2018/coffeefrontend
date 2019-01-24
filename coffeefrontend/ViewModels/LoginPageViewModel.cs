@@ -6,30 +6,31 @@ namespace coffeefrontend
 {
     public class LoginPageViewModel : BaseViewModel
     {
-        private RegisterBody credentials;
+        private RegisterBody registerCreds, loginCreds;
         public ICommand RegisterCommand { protected set; get; }
         public ICommand LoginCommand { protected set; get; }
 
         public LoginPageViewModel()
         {
-            credentials = new RegisterBody();
-
+            registerCreds = new RegisterBody();
+            loginCreds = new RegisterBody();
 
             RegisterCommand = new Command(async () =>
             {
-                (string error, string result) = await App.Manager.RegisterTask(credentials.username, credentials.password, credentials.role);
+                (string error, string result) = await App.Manager.RegisterTask(registerCreds.username, registerCreds.password, registerCreds.role);
                 if (error != null)
                     await Application.Current.MainPage.DisplayAlert("Alert", error, "Close");
                 else
+                {
+                    LoginCreds = registerCreds;
                     await Application.Current.MainPage.DisplayAlert("Result", "You can now login", "Close");
+                }
             });
-
-
 
             LoginCommand = new Command(async () =>
             {
 
-                (string error, string token) = await App.Manager.LoginTask(credentials.username, credentials.password);
+                (string error, string token) = await App.Manager.LoginTask(loginCreds.username, loginCreds.password);
                 if (error != null)
                     await Application.Current.MainPage.DisplayAlert("Alert", error, "Close");
                 else
@@ -43,14 +44,27 @@ namespace coffeefrontend
 
         }
 
-        public RegisterBody Credentials
+        public RegisterBody RegisterCreds
         {
-            get => credentials;
+            get => registerCreds;
             set
             {
-                if (!credentials.Equals(value))
+                if (!registerCreds.Equals(value))
                 {
-                    credentials = value;
+                    registerCreds = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public RegisterBody LoginCreds
+        {
+            get => loginCreds;
+            set
+            {
+                if (!loginCreds.Equals(value))
+                {
+                    loginCreds = value;
                     OnPropertyChanged();
                 }
             }

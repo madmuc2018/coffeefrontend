@@ -14,7 +14,7 @@ namespace coffeefrontend
     {
         HttpClient client;
 
-        static string url = "https://13027d48.ngrok.io/v1";
+        static string url = "https://7db53569.ngrok.io/v1";
 
         public RestService()
         {
@@ -37,10 +37,11 @@ namespace coffeefrontend
                         req.Content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
                     response = await client.SendAsync(req);
                     string resultString = (await response.Content.ReadAsStringAsync()).ToString();
+                    Debug.WriteLine(@"             RESPONSE {0}", resultString);
                     if (!response.IsSuccessStatusCode)
                     {
                         string errorString = JsonConvert.DeserializeObject<ErrorType>(resultString).ToString().Trim();
-                        Debug.WriteLine(@"             ERROR {0} {1} {2}", response, resultString, errorString);
+                        Debug.WriteLine(@"             ERROR {0} {1}", response, errorString);
                         return (errorString.Length > 0 ? errorString : $"Cannot {caller}", default(SuccessType));
                     }
                     SuccessType result = JsonConvert.DeserializeObject<SuccessType>(typeof(SuccessType).Equals(typeof(IgnoreResponseContent)) ? $"{{\"message\": \"{caller} succeeded\"}}" : resultString);
