@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 
@@ -23,7 +21,6 @@ namespace coffeefrontend
                 Console.WriteLine(result.Text);
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    //await Navigation.PopAsync();
                     (string error, OrderResp orderResp) = await App.Manager.GetLastestOrderTask(Application.Current.Properties["coffee_token"].ToString(), result.Text);
                     if (error != null)
                     {

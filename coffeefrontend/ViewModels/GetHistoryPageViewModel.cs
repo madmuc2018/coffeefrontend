@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using System;

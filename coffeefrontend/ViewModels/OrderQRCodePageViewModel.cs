@@ -2,7 +2,6 @@
 using ZXing.QrCode;
 using ZXing.Common;
 using SkiaSharp.Views.Forms;
-using Newtonsoft.Json;
 using Plugin.Screenshot;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -19,6 +18,7 @@ namespace coffeefrontend
 
         public OrderQRCodePageViewModel(OrderResp orderResp)
         {
+            OrderID = orderResp.data.id;
             BitMatrix bmqr = new QRCodeWriter().encode(orderResp.guid, ZXing.BarcodeFormat.QR_CODE, 750, 750);
             skbmp = new SKBitmap(bmqr.Width, bmqr.Height);
             for (int i = 0; i < bmqr.Width; i++)

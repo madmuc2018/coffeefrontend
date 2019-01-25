@@ -10,13 +10,13 @@
             <Label Text="{Binding OrderID, StringFormat='Coffee ID: {0:N}'}}" FontSize="Micro" HorizontalTextAlignment="Center"/>
             
             <Label Text="Grant access" FontSize="Medium" HorizontalOptions="StartAndExpand"/>        
-            <Entry Placeholder="Username" Text="{Binding Username, Mode=TwoWay}"/>
-            <Button Text="Grant" Command="{Binding SubmitCommand}" HorizontalOptions="Center"/>
+            <Entry Placeholder="Email" Text="{Binding GrantedUsername, Mode=TwoWay}"/>
+            <Button Text="Grant" Command="{Binding SubmitGrantCommand}" HorizontalOptions="Center"/>
             
             <Label Text="" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
 
             <Label Text="Revoke access" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
-            <Entry Placeholder="Username" Text="{Binding User, Mode=TwoWay}"/>
+            <Entry Placeholder="Email" Text="{Binding RevokedUsername, Mode=TwoWay}"/>
             <Button Text="Revoke" Command="{Binding SubmitRevokeCommand}" HorizontalOptions="Center"/>
 
             <Label Text="" FontSize="Medium" HorizontalOptions="StartAndExpand"/>

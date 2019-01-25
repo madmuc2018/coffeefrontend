@@ -14,7 +14,7 @@ namespace coffeefrontend
     {
         HttpClient client;
 
-        static string url = "https://87b17420.ngrok.io/v1";
+        const string BASE_URL = "https://fsbccoffee.ngrok.io/v1";
 
         public RestService()
         {
@@ -24,7 +24,7 @@ namespace coffeefrontend
 
         private async Task<(string, SuccessType)> doSendRequest<ErrorType, SuccessType>(string endpoint, string requestName, HttpMethod httpMethod, string token = null, object requestBody = null, [CallerMemberName] string caller = "Unknown method") where ErrorType : ToStringBase
         {
-            var uri = new Uri($"{url}{endpoint}");
+            var uri = new Uri($"{BASE_URL}{endpoint}");
             HttpResponseMessage response = null;
             using (UserDialogs.Instance.Loading(requestName, null, null, true, MaskType.Black))
             {

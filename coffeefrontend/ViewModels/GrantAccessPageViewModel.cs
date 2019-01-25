@@ -9,10 +9,10 @@ namespace coffeefrontend
     {
         public string OrderID { get; }
         private string guid;
-        private string username;
-        private string user;
+        private string grantedUsername;
+        private string revokedUsername;
         public List<string> accessList { get; protected set; }
-        public ICommand SubmitCommand { protected set; get; }
+        public ICommand SubmitGrantCommand { protected set; get; }
         public ICommand SubmitRevokeCommand { protected set; get; }
 
         public async Task<int> init(string guid)
@@ -31,53 +31,56 @@ namespace coffeefrontend
         {
             this.OrderID = orderID;
             this.guid = guid;
-            this.username = "";
-            this.user = "";
+            this.grantedUsername = "";
+            this.revokedUsername = "";
             this.accessList = new List<string>();
 
-            SubmitCommand = new Command(async () =>
+            SubmitGrantCommand = new Command(async () =>
             {
-                (string error, string result) = await App.Manager.GrantAccessTask(Application.Current.Properties["coffee_token"].ToString(), guid, new List<string>(new string[] { username }));
+                (string error, string result) = await App.Manager.GrantAccessTask(Application.Current.Properties["coffee_token"].ToString(), guid, new List<string>(new string[] { grantedUsername }));
                 if (error != null)
                     await Application.Current.MainPage.DisplayAlert("Alert", error, "Close");
                 else
-                    await Application.Current.MainPage.DisplayAlert("Result", $"Access granted to {username}", "Close");
+                {
+                    await init(guid);
+                    await Application.Current.MainPage.DisplayAlert("Result", $"Access granted to {grantedUsername}", "Close");
+                }
             });
 
             SubmitRevokeCommand = new Command(async () =>
             {
-                (string error, string result) = await App.Manager.RevokeAccessTask(Application.Current.Properties["coffee_token"].ToString(), guid, user);
+                (string error, string result) = await App.Manager.RevokeAccessTask(Application.Current.Properties["coffee_token"].ToString(), guid, revokedUsername);
                 if (error != null)
                     await Application.Current.MainPage.DisplayAlert("Alert", "Cannot revoke access", "Close");
                 else
                 {
                     await init(guid);
-                    await Application.Current.MainPage.DisplayAlert("Result", $"Access revoked to {user}", "Close");
+                    await Application.Current.MainPage.DisplayAlert("Result", $"Access revoked to {revokedUsername}", "Close");
                 }
             });
         }
 
-        public string Username
+        public string GrantedUsername
         {
-            get => username;
+            get => grantedUsername;
             set
             {
-                if (!username.Equals(value))
+                if (!grantedUsername.Equals(value))
                 {
-                    username = value;
+                    grantedUsername = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public string User
+        public string RevokedUsername
         {
-            get => user;
+            get => revokedUsername;
             set
             {
-                if (!user.Equals(value))
+                if (!revokedUsername.Equals(value))
                 {
-                    user = value;
+                    revokedUsername = value;
                     OnPropertyChanged();
                 }
             }
