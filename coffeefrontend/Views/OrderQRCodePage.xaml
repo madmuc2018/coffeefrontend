@@ -13,6 +13,7 @@
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
             PaintSurface="OnCanvasViewPaintSurface"/>
+            <Button Text="Take screenshot" Command="{Binding ScreenshotCommand}" HorizontalOptions="Center"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

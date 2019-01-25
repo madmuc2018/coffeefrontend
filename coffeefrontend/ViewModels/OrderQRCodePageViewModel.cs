@@ -3,6 +3,11 @@ using ZXing.QrCode;
 using ZXing.Common;
 using SkiaSharp.Views.Forms;
 using Newtonsoft.Json;
+using Plugin.Screenshot;
+using System.Windows.Input;
+using Xamarin.Forms;
+using System;
+using Acr.UserDialogs;
 
 namespace coffeefrontend
 {
@@ -10,6 +15,7 @@ namespace coffeefrontend
     {
         private SKBitmap skbmp;
         public string OrderID { get; }
+        public ICommand ScreenshotCommand { protected set; get; }
 
         public OrderQRCodePageViewModel(OrderResp orderResp)
         {
@@ -29,6 +35,22 @@ namespace coffeefrontend
                     }
                 }
             }
+
+            ScreenshotCommand = new Command(async () =>
+            {
+                using (UserDialogs.Instance.Loading("Taking screenshot", null, null, true, MaskType.Black))
+                {
+                    try
+                    {
+                        string path = await CrossScreenshot.Current.CaptureAndSaveAsync();
+                        await Application.Current.MainPage.DisplayAlert("Result", "Screenshot saved", "Close");
+                    }
+                    catch (Exception ex)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Result", ex.Message, "Close");
+                    }
+                }
+            });
         }
 
         public void PaintSurface(SKPaintSurfaceEventArgs args)
