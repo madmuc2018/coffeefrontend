@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout Padding="20,20">
             <Label Text="Coffee history" FontSize="Large" Font="Bold" HorizontalOptions="CenterAndExpand"/>
-            <ListView ItemsSource="{Binding OrderHistory}" RowHeight="310">
+            <ListView ItemsSource="{Binding OrderHistory}" RowHeight="320">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
