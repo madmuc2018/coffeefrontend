@@ -84,10 +84,9 @@ namespace coffeefrontend
             return (error, error ?? resp.message);
         }
 
-        public async Task<(string, string)> GrantAccess(string token, string guid, List<string> gus)
+        public async Task<(string, GrantAccessResp)> GrantAccess(string token, string guid, List<string> gus)
         {
-            (string error, IgnoreResponseContent resp) = await doSendRequest<ErrorResp, IgnoreResponseContent>($"/fs/{guid}/grant", "Granting access", HttpMethod.Put, token, new GrantAccessBody { grantedUsers = gus });
-            return (error, error ?? resp.message);
+            return await doSendRequest<ErrorResp, GrantAccessResp>($"/fs/{guid}/grant", "Granting access", HttpMethod.Put, token, new GrantAccessBody { grantedUsers = gus });
         }
 
         public async Task<(string, string)> RevokeAccess(string token, string guid, string rus)

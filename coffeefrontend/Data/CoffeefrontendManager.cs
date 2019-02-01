@@ -37,7 +37,7 @@ namespace coffeefrontend
             return restService.UpdateOrder(token, guid, order);
         }
 
-        public Task<(string, string)> GrantAccessTask(string token, string guid, List<string> grantedUsers)
+        public Task<(string, GrantAccessResp)> GrantAccessTask(string token, string guid, List<string> grantedUsers)
         {
             return restService.GrantAccess(token, guid, grantedUsers);
         }
