@@ -34,11 +34,13 @@
 	<string>coffeefrontend</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>XSLaunchImageAssets</key>
+	<string>Assets.xcassets/LaunchImage.launchimage</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This application needs your permission to save photos.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This application needs your permission to save photos.</string>
-	<key>UIStatusBarHidden</key>
-	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This application needs your permission to use the camera</string>
 </dict>
 </plist>

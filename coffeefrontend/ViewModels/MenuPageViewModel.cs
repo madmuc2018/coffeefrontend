@@ -9,6 +9,7 @@ namespace coffeefrontend
         {
             new MenuPageItem("Home", typeof(HomePage)),
             new MenuPageItem("Include", typeof(NewOrderPage)),
+            new MenuPageItem("QR Scanner", typeof(QRCodeScanPage)),
             new MenuPageItem("Logout", null)
         };
 

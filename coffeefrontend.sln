@@ -11,6 +11,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B127A136-0240-4E6D-8033-417F405FC1F5}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		LaunchScreen.storyboard = LaunchScreen.storyboard
 	EndProjectSection
 EndProject
 Global

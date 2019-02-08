@@ -37,13 +37,22 @@ namespace coffeefrontend
 
             SubmitGrantCommand = new Command(async () =>
             {
-                (string error, string result) = await App.Manager.GrantAccessTask(Application.Current.Properties["coffee_token"].ToString(), guid, new List<string>(new string[] { grantedUsername }));
+                (string error, GrantAccessResp result) = await App.Manager.GrantAccessTask(Application.Current.Properties["coffee_token"].ToString(), guid, new List<string>(new string[] { grantedUsername }));
                 if (error != null)
                     await Application.Current.MainPage.DisplayAlert("Alert", error, "Close");
                 else
                 {
                     await init(guid);
-                    await Application.Current.MainPage.DisplayAlert("Result", $"Access granted to {grantedUsername}", "Close");
+                    string message;
+                    if (result.newGrantedUsers.Count <= 0)
+                    {
+                        message = "Access not granted, please double check the email";
+                    }
+                    else
+                    {
+                        message = $"Access granted to {string.Join(", ", result.newGrantedUsers)}";
+                    }
+                    await Application.Current.MainPage.DisplayAlert("Result", message, "Close");
                 }
             });
 
